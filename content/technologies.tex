@@ -2,9 +2,51 @@
 \chapter{Választott technologiák}
 %----------------------------------------------------------------------------
 
+Annek a fejezetnek a keretein belül a felhasznált technologiákat szeretném bemutatni. Elöször azokat a részeket mutatom be, melyek az alkalmazás több részét is lefedik, majd a backend, a frontend és az adatbázis rétekeget mutatom be részletesen.
 
 %----------------------------------------------------------------------------
-\section{Adatbázis}
+\section{GraphQL}
+%----------------------------------------------------------------------------
+
+A graphQL egy lekérdező nyelv, amely a jelenleg elterjedt REST API-s megoldásokat próbálja leváltani/kiegészíteni. A megszokott REST API-val ellentétben GraphQL-nél csak egyetlen egy végpont létezik, valamint csak POST típusú HTTP kéréseket használunk. 
+
+Az összes kérést erre a végpontra küldjük a megfelelő tartalommal, melyet a POST kérés törzsében (body) helyezünk el.
+
+A bevett REST API-s megoldással szembeni hatalmas előnye, hogy mindig azt kapjuk amit kérünk. A POST kérés törzsében elhelyezett GraphQL operation pontosan meghatározza, hogy milyen entitások milyen tulajdonságait szeretnénk visszakapni. Ez a GraphQL operation nagyon hasonlít a JSON formátumra, azonban egy-két dologban eltér attól. Lehetőségünk van több entitásból is adatot lekérni egyetlen kéréssel, így csökkentve a HTTP üzenetek számát.
+
+A kéréseket minden esetben egy (vagy több) úgynevezett resolver szolgálja ki nekünk. 
+
+A resolvereiből 3 fő típust különböztetünk meg Query, Mutation és Subscription.
+
+\begin{definition}[Query]
+  Adatok lekérésére szolgál
+\end{definition}
+
+\begin{definition}[Mutation]
+  Ahogy a nevéből is következtethetünk rá főként adatok módosítására és létrehozására szolgál
+\end{definition}
+
+\begin{definition}[Subscription]
+  A standard GraphQL implementáció tartalmazza a websocket kommunikációt is. A subscription-ök segítségével lehetősége van a kliensnek feliratkozni bizonyos eseményekre, melyek bekövetkeztéről azonnal értesül socket kapcsolaton keresztül.
+\end{definition}
+
+
+%----------------------------------------------------------------------------
+\section{TypeScript}
+%----------------------------------------------------------------------------
+
+A TypeScript egy - a Microsoft által fejlesztett - nyílt forráskódú nyelv, amely JavaScript-et egészíti ki statikus típus definíciókkal. Mondhatjuk, hogy a JavaScript egy superset-je.
+
+A típusok segítségével hamarabb észrevehetjük a hibákat az alkalmazásunkban. Azonban fontos megjegyezni, hogy a típusok definiálása opcionális, ezért TypeScript mellett érdemes valamilyen linter-t használni, amely figyelmezteti a programozót ha elmulasztja a típusdefiníciók használatát. 
+
+Minden valid JavaScript kód egy valid TypeScript kód is, ez részben az elhagyható típusdefiníciók miatt igaz.
+
+Annak érdekében, hogy probléma nélkül futtathassuk a TypeScript kódunkat a böngészőkben minden kódot JavaScript-re transzformálunk. Erre több megoldás is létezik, ilyen például a Babel vagy a TypeScript complier.
+
+A NodeJS-nek köszönhetően használhatjuk backend oldali nyelvként is, így a frontend és a backend közös nyelvet használhat, amely akár a kódmegosztás lehetőségét is felveti.
+
+%----------------------------------------------------------------------------
+\section{Frontend}
 %----------------------------------------------------------------------------
 
 Lorem ipsum
@@ -16,7 +58,7 @@ Lorem ipsum
 Lorem ipsum
 
 %----------------------------------------------------------------------------
-\section{Frontend}
+\section{Adatbázis}
 %----------------------------------------------------------------------------
 
 Lorem ipsum
