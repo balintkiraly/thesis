@@ -1,13 +1,91 @@
 %----------------------------------------------------------------------------
 \chapter{Feladat specifikáció}
 %----------------------------------------------------------------------------
-\section{Nem funkcionális követelmények}
-%----------------------------------------------------------------------------
 
-Lorem ipsum
+A fejezet kitér az alkalmazással szemben támasztott funkcionális és nem funkcionális követelményekre.
 
 %----------------------------------------------------------------------------
 \section{Funkciónális követelmények}
 %----------------------------------------------------------------------------
 
-Lorem ipsum dolor set
+%----------------------------------------------------------------------------
+\subsection{Regisztráció}
+%----------------------------------------------------------------------------
+Az elkészítendő alkalmazásban legyen lehetőség felhasználót létrehozni egy regisztrációs oldalon.
+A regisztráció során a felhasználó nevét, email címét, jelszavát valamint a jelszavának megerősítését kérjük.
+További fontos követelmény, hogy egy email címhez csak egy felhasználó tartozhat
+
+%----------------------------------------------------------------------------
+\subsection{Bejelentkezés}
+%----------------------------------------------------------------------------
+A regisztráció során megadott email cím és jelszó segítségével a látogatónak képesnek kell lennie authentikálni magát.
+A rendszer csak authentikált felhasználók számára legyen elérhető.
+Nem authentikált felhasználóknak csak a bejelentkezés és a regisztráció opciókat kínáljuk fel.
+
+%----------------------------------------------------------------------------
+\subsection{Raktár épületek kezelése}
+%----------------------------------------------------------------------------
+Az alkalmazással szemben követelmény, hogy képesnek kell lennie több raktár (raktár épület) kezelését.
+Ez alatt értjük a raktár létrehozását, és szerkesztését valamint az ezekhez tartozó jogosultságok menedzselését.
+A raktárról tároljuk a méreteit, a nevét és természetesen a szerkesztésre jogosult felhasználók listáját.
+
+%----------------------------------------------------------------------------
+\subsection{Tárolók kezelése}
+%----------------------------------------------------------------------------
+Minden raktárba tárolók helyezhetőek. A tárolókat a nevükkel és meretükkel egyűtt rögzíthetjuk.
+Amennyiben a felhasználó rendelkezik a megfelelő jogosultsággal az adott raktáron belül, legyen lehetősége a tárolók szerkesztésre, létrehozására és törlésére.
+
+%----------------------------------------------------------------------------
+\subsection{Eszközök kezelése}
+%----------------------------------------------------------------------------
+A hierarchia harmadik szintjén helyezkednek el az eszközökök. 
+Minden eszköz rendelkezzen az alábbi tulajdonságokkal.
+Név, amely az egyszerű azonosítást és a kereshetőséget biztosítja.
+Érték, ami az eszköz raktárba vételekori értékét tartalmazza.
+Minden egyes leltárba vett eszköhöz legyen lehetőségünk a kiadások felvételére.
+Minden kiadáshoz egy összeg és egy leírás tartozik, amely a kiadás okának magyarázatára szolgál.
+
+%----------------------------------------------------------------------------
+\subsection{Térképes nézet}
+%----------------------------------------------------------------------------
+%----------------------------------------------------------------------------
+\subsubsection{Raktár nézete}
+%----------------------------------------------------------------------------
+A raktárakban a tárolók elhelyezkedését jelenítsük meg egy felülnézeti, térképes nézet formájában is.
+A tárolók mozgatását nem szükséges megvalósítani ezen a térképen.
+Ennek oka, hogy míg az eszközök poziciója gyakran változik a tárolók fixen telepítve vannak.
+Ennek a funkciónak a nem implementálása felesleges félreértések elkerülését is szolgálja.
+
+%----------------------------------------------------------------------------
+\subsubsection{Tároló nézete}
+%----------------------------------------------------------------------------
+Minden tároló oldalán jelenítsünk meg egy képet a tároló tartalmával.
+A tárolt eszközöket egyszerű téglalappal reprezentáljuk.
+Fontos követelmény, hogy a ezen a nézeten legyen lehetőség az eszközök mozgatására is.
+A mozgatást a felhasználó a mozgatni kívánt elemre kattintva, majd az egér ball billentyűjét lenyomva mozgathatja a tárolón belül.
+A fent leírt módszer segítségével legyen lehetőség egy ideiglenes tárolóba rakni. 
+Ezt az ideiglenes tárolót jelenítsük meg minden (az adott raktárban lévő) tároló oldalán, az eszközök tárolók közötti mozgatását megvalósítva.
+
+%----------------------------------------------------------------------------
+\subsection{Kereshetőség}
+%----------------------------------------------------------------------------
+Az alkalmazásban legyen lehetőség a leltárba vett eszközök közötti keresésre.
+Fontos, hogy a keresés segítségével ne csak az adott elemet kapjuk meg hanem annak az elhelyezkedését is könnyedén le tudja kérdezni a felhasználó.
+
+\section{Nem funkcionális követelmények}
+%----------------------------------------------------------------------------
+
+Az alkalmazással szemben természetesen nem csak funkciónális követelmények vannak.
+A nem funkciónális követelmények is legalább annyira fontosak egy alkalmazás tervezésénél és fejlesztésénél, mint a funkciónális követelmények.
+
+%----------------------------------------------------------------------------
+\subsection{Webes párhuzamos működés}
+%----------------------------------------------------------------------------
+
+Az elkészülő programmal szemben támasztott követelmények közé tartozik az egyidejüleg több felhasználó kiszolgálása webböngésző segítségével.
+
+%----------------------------------------------------------------------------
+\subsection{Üzemeltetéssel szemben támasztott követelmények}
+%----------------------------------------------------------------------------
+
+Továbbá fontos követelmény, hogy az alkalmazás üzemeltetéséhez ne legyen szükség speciális hardware vagy speciális operációs rendszer.
