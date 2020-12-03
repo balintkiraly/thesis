@@ -5,7 +5,22 @@
 Lorem ipsum
 
 %----------------------------------------------------------------------------
-\section{Fronted tesztelés}
+\section{Frontend tesztelés}
 %----------------------------------------------------------------------------
 
 Lorem ipsum
+
+%----------------------------------------------------------------------------
+\section{Backend tesztelés}
+%----------------------------------------------------------------------------
+
+A Prisma fejlesztú csapata csupűn pár hónappal ezelött jelentette be a 2.0-ás verziót.
+A folyamatos fejlesztés ellenére is még hiányos az eszközkészlete.
+Ennek köszönhetően teszteléshez sem kinál semmilyen megoldást.
+
+A tesztelési környezet kialakításház egy SQLite adatbázist szerettem volna használni, hogy ne a fejlesztés közben használt adatbázist használjam és ne teljen túl sok időbe a tesztek futtatása.
+Azonban a Prisma jelenlegi verziója nem támogatja az enumerációt SQLite adatbázis esetén.
+Emiatt itt is egy PostgreSQL adatbázissal kellett dolgozom.
+A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véltelenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals ereményt váltana ki a tesztekből.
+
+A tesztek során a GraphQL resolver-eket hívtam meg különböző query-kel és mutation-ökkel.
