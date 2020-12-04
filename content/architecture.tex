@@ -8,6 +8,14 @@ E három réteg együttesen felel azért, hogy a felhasználó böngészőn kere
 \section{Adatbázis séma}
 Az adatbázis migrációját nem kellett manuálisan végrehajtanom hála a Prisma-nak. 
 A Prisma - amellett, hogy kezeli a migrációkat - egy absztrakciós réteget ad az adatbázisunk és az alkalmazásunk közé.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/db.png}
+  \caption{Adatbázis séma}
+  \label{fig:backend}
+\end{figure}
+
 %----------------------------------------------------------------------------
 
 \section{Backend felépítése}
@@ -17,6 +25,14 @@ A kéréseket egy express server fogadja, a feldolgozásának mikéntjéről ped
 Az Apollo server lehetőséget nyújt middelware-ek definiálsára, melyek minden kérés kiszolgálása elött lefutnak.
 Erre a lehetőségre épít a GraphQL Shield nevű könyvtár, aminek segítségével minden egyes GraphQL műveletre megadhatünk ahhoz szükséges előfeltételeket egyszerű szabályok segítségével.
 Ilyen szabályokkal valósítottam meg a teljes authorizációt és authentikáció ellenörzését.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/backend.png}
+  \caption{Backend felépítése}
+  \label{fig:backend}
+\end{figure}
+
 %----------------------------------------------------------------------------
 
 \section{Frontend felépítése}
@@ -25,3 +41,10 @@ Ahogy azt a korábbi fejezetekben taglaltam a kliens alkalmazás megvalósítás
 
 \section{A teljes kép}
 Frontend ---GraphQL--- backend - DB
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/architecture.png}
+  \caption{Teljes alkalmazás felépítése}
+  \label{fig:architecture}
+\end{figure}
