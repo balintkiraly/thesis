@@ -23,6 +23,12 @@ A rendszer csak authentikált felhasználók számára legyen elérhető.
 Nem authentikált felhasználóknak csak a bejelentkezés és a regisztráció opciókat kínáljuk fel.
 
 %----------------------------------------------------------------------------
+\subsection{Kijelentkezés}
+%----------------------------------------------------------------------------
+A bejelentkezett felhasználónak biztosítsunk lehetőséget a munkamenet megszünetetésére. 
+Annak folytatásához csak újbóli bejelentkezéssel legyen lehetősége.
+
+%----------------------------------------------------------------------------
 \subsection{Raktár épületek kezelése}
 %----------------------------------------------------------------------------
 Az alkalmazással szemben követelmény, hogy képesnek kell lennie több raktár (raktár épület) kezelését.
@@ -72,23 +78,22 @@ Fontos, hogy a keresés segítségével ne csak az adott elemet kapjuk meg hanem
 \subsection{Naplózás}
 Egy alkalmazásnál fontos, hogy képesek legyünk nyomonkövetni az adatbázisba történt változások okait, különösen igaz ez egy raktár rendszer esetén.
 A rendszer logoljon minden eszközzel kapcsolatos felhasználói interakciót, amely adatbázis művelethez vezet.
-Tehát létrehozás, szerkesztés és törtlés. A megtekintések logolása nem szükséges.
+Tehát az eszköz létrehozását, szerkesztését és törtlését. A megtekintések logolása nem szükséges.
 %----------------------------------------------------------------------------
 
 \section{Nem funkcionális követelmények}
-%----------------------------------------------------------------------------
 
 Az alkalmazással szemben természetesen nem csak funkciónális követelmények vannak.
 A nem funkciónális követelmények is legalább annyira fontosak egy alkalmazás tervezésénél és fejlesztésénél, mint a funkciónális követelmények.
+%----------------------------------------------------------------------------
 
-%----------------------------------------------------------------------------
 \subsection{Webes párhuzamos működés}
-%----------------------------------------------------------------------------
 
 Az elkészülő programmal szemben támasztott követelmények közé tartozik az egyidejüleg több felhasználó kiszolgálása webböngésző segítségével.
-
+Elegendő a böngészők legfrissebb változatának a támogatása.
 %----------------------------------------------------------------------------
+
 \subsection{Üzemeltetéssel szemben támasztott követelmények}
-%----------------------------------------------------------------------------
-
-Továbbá fontos követelmény, hogy az alkalmazás üzemeltetéséhez ne legyen szükség speciális hardware vagy speciális operációs rendszer.
+Továbbá fontos követelmény, hogy az alkalmazás üzemeltetéséhez ne legyen szükség speciális hardware-re vagy speciális operációs rendszerre. 
+Elindításához elgendőnek kell lennie egy átlagos személyi számítógép hardware készlete. 
+A fejlesztést és üzemeltetést tegyük lehetővé Linux, MacOS vagy Windows operációs rendszereken is. 

@@ -7,8 +7,81 @@ Ezért igyekeztem alternatívákkat kínálni ay esetleges üzembehelyezőknek.
 
 \section{Docker}
 Az üzemeltetés megkönnyítése érdekében minden komponenshez készítettem egy-egy dockerfile-t és docker-compose file-t.
-%----------------------------------------------------------------------------
 
-\section{Deployment}
+A frontendhez tartozó Docker felépítése három lépésből áll. Első lépésben a szükséges függőségeket telepítjük a yarn csomagkezelő segítségével.
+Második lépésben a TypeScript kódot fordítjuk JavaScript kódra, a harmadik lépésben pedig egyszerűen elindítjuk az alkalmazást.
+
+A három lépéses konténer készítés oka a docker cachelésénel maximális kihasználása.
+Különösen nagy segítség lehet, ha úgyan azt a verziót több környezetbe is szeretnénk élesíteni.
+
+\begin{lstlisting}[language=TeX, caption=Frontend Dockerfile]
+# 1 - Install dependecies
+FROM node:12-alpine AS dependencies
+
+WORKDIR /opt/app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# 2 - Build
+FROM node:12-alpine AS build
+
+ENV NODE_ENV=production
+WORKDIR /opt/app
+COPY . .
+COPY --from=dependencies /opt/app/node_modules ./node_modules
+RUN yarn build
+
+# 3 - Run
+FROM node:12-alpine AS run
+
+WORKDIR /opt/app
+ENV NODE_ENV=production
+COPY --from=build /opt/app/next.config.js ./
+COPY --from=build /opt/app/public ./public
+COPY --from=build /opt/app/.next ./.next
+COPY --from=build /opt/app/node_modules ./node_modules
+CMD ["node_modules/.bin/next", "start"]
+\end{lstlisting}
+
+A backend-hez tartozó konténer sokkalta egyszerűbb. 
+A hozzá tartozó docker-compose file tartalmazza a backend és az adatbázis elindítását, valamint a közöttük lévő kapcsolat kiépítését és a Prisma Studio indítását is.
+
+\begin{lstlisting}[language=TeX, caption=Backend docker compose]
+version: '3'
+services:
+  server:
+    build: .
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    ports:
+      - '${SERVER_PORT}:4000'
+      - '${STUDIO_PORT}:5555'
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      DATABASE_URL: ${DATABASE_URL}
+      APP_SECRET: ${APP_SECRET}
+    networks:
+      - server-network
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_USER: prisma
+      MYSQL_PASSWORD: prisma
+      MYSQL_ROOT_PASSWORD: prisma
+      MYSQL_DATABASE: prisma
+    networks:
+      server-network:
+        aliases:
+          - mysql.db
+    volumes:
+      - db_data:/var/lib/mysql
+volumes: 
+  db_data:
+networks:
+  server-network:
+\end{lstlisting}
 
 %----------------------------------------------------------------------------
