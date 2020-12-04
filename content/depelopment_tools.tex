@@ -2,10 +2,19 @@
 %----------------------------------------------------------------------------
 \chapter{Fejlesztést segítő eszközök}
 %----------------------------------------------------------------------------
+A fejlesztés során igyekeztem minél több olyan eszközt használni, ami elősegíti a munkát és javítja a kódminőséget és biztonságot.
 %----------------------------------------------------------------------------
+
 \section{Continuous Integration}
-%----------------------------------------------------------------------------
-A fejlesztés során 
+A Continuous Integration (rövidítve CI) napjainkban már elengedhetetlen része a fejlesztési folyamatoknak.
+Rengetek megoldás létezik, azonban én a GitHub Action mellett tettem le a voksomat.
+Ennek oka, hogy a GitHub-ot használtam a verziókezelt kódom tárolására, így kézen fekvő volt ennek a megoldásnak az alkalmazása.
+
+Az alkalmazást 2 külön repository-ban kezeltem, hogy jobban elkülönüljön a frontend és a backend kódja.
+Ennek a hátránya az volt, hogy bár ugyan azon nyelvet használja a két repository mégis kétszer kellett implementálnom a GitHub Action-öket.
+
+Az action-ök létrehozását egyszerű szöveges formában tehetjük meg. 
+A \lstinline|.github/workflows| mappába létrehozott github \lstinline|.yml| és \lstinline|.yaml| kiterjesztésű fájlok automatikusan kiértékelődnek a GitHub Action által.
 
 \begin{figure}[!ht]
   \centering
@@ -13,23 +22,76 @@ A fejlesztés során
   \caption{GitHub Action működés közben}
   \label{fig:GitHubAction}
 \end{figure}
+%----------------------------------------------------------------------------
 
-%----------------------------------------------------------------------------
 \subsection{Linter}
-%----------------------------------------------------------------------------
+A linter egy viszonylag gyors lefutású és kevés erőforrást igénylő action, ezért beállítása szerint bármilyen commit kerül a GitHub repository-ba azonnal elindul.
+
 
 %----------------------------------------------------------------------------
 \subsection{Statikus kódellenörzés}
+A statikus kódellenörzést egy a GitHub által ajánlott megoldással valósítottam meg a CodeQL-lel.
+Mivel ez egy több erőforrást igénylő folyamat ezért a futtatása nem történik meg minden commitnál.
+Csak ha a főágba történik a commit vagy ha Pull Request-et kezdeményezek, melynek a cél ága a főág.
+
+A képen (\refstruc{fig:securityCheck}) egy a GitHub által észlelt lehetséges sebezhetőség detektálása látható.
+A kód analízis során a rendszer észlelte, hogy shell command futtatása történik úgy, hogy annak tartalma környezeti változóból származik.
+A figyelmeztetés jelen esetben egy fals riasztás volt, mert a sérülékny kódrészlet az alkalmazása futása közben nem érhető el, ugyanis a teszt környezet kiallakitására szolgál.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/security.png}
+  \caption{Code scanning figyelmeztetés}
+  \label{fig:securityCheck}
+\end{figure}
 %----------------------------------------------------------------------------
 
+\section{Git hook}
+Git használata esetén rengeteg eseményhez definiálhatunk úgynevezett hook-okat.
+Ezek segítéségvel bizonyos események után, előtt vagy közben futtathatunk tetszőleges kódot.
+Az alkalmazásomban egy linter-t állítottam be a pre-commit hookra, az-az a commit elkészítése előtt minden alkalommal lefut a linter így biztosítva a kódminőségét.
+
+\begin{lstlisting}[style=ES6, caption=Pre-commit hook beállításai]    
+"husky": {
+  "hooks": {
+    "pre-commit": "lint-staged"
+  }
+},
+"lint-staged": {
+  "*.ts": [
+    "eslint --fix"
+  ]
+}
+\end{lstlisting}
+  
 %----------------------------------------------------------------------------
+
 \section{Continuous Deployment}
-%----------------------------------------------------------------------------
+A Continuous Integration melett elengedhetetlen része a fejlesztésnek a Continuous Deployment (röviden CD).
+A CD az alkalmazás folyamatos kitelepítését jelenti, hogy a kód felöltése után szinte azonnal elérhető legyen az alkalmazás legfrissebb változata.
 
 %----------------------------------------------------------------------------
+
 \subsection{Heroku}
-%----------------------------------------------------------------------------
+A backend alkalmazás üzemeltetésére a Heroku szolgáltatásai vettem igénybe.
+Webes felületének és GitHub integrációjának köszönhetően nem igényel komoly szakértelmet az alkalmazás elindítása.
+Ingyenes keretek között csak egy ág automatikus kitelepítésére van lehetőség, azonban beállítható az is, hogy megvárja a CI kimenetelét és csak sikeres futás után kezdje el a telepítést.
+Így elkerülhetjük hibás- vagy biztonsági réseket tartalmazó kódok éles környezetbe jutását.
 
 %----------------------------------------------------------------------------
+
 \subsection{Vercel}
+A frontend üzemeltetéséhez a Vercel-t használtam. 
+A Herokuhoz hasonlóan remek GitHub integrációval és webes felülettel rendelkezik. 
+Lehetőségünk nyílik a Pull Request-ekhez egy előnézeti alkalmazás kitelepítésére is, ezzel elősegítve a csapatmunkában egymás munkájának ellenörzését.
+Ilyenkor a Vercel automatikusan hozzáad egy megjegyzést (\refstruc{fig:vercel}) a Pull Requesthez az előnézeti alkalmazás linkjével.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/vercel.png}
+  \caption{Vercel megjegyzése Pull Reques-nél}
+  \label{fig:vercel}
+\end{figure}
+
 %----------------------------------------------------------------------------
+

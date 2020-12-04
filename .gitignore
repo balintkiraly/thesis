@@ -6,3 +6,6 @@
 *.thm
 *.blg
 *.bbl
+*.lof
+*.lot
+.vscode/

@@ -3,7 +3,7 @@
 %----------------------------------------------------------------------------
 
 Annek a fejezetnek a keretein belül a felhasznált technológiák kiválasztásának szempontjait szeretném bemutatni. 
-Elöszőr a frontend technológiát választottam ki úgyanis az alkalmazásnak ez a része a bonyolultabb a raktár térkép kezelése miatt.
+Elöszőr a frontend technológiát választottam ki úgyanis az alkalmazásnak ez a része a bonyolultabb a raktár térképek kezelése miatt.
 
 %----------------------------------------------------------------------------
 \section{Frontend}
@@ -64,7 +64,7 @@ A Google keresések alapján a korábbi években az Angular egyértelműen uralt
 A Google keresések nem mutattak szignifikáns különbséget, azonban az NPM letöltések számában már jelentős eltéréseket tapasztalhatunk. A grafikonról (\refstruc{fig:NPMTrends}) könnyedén leolvasható, hogy több, mint 4-szer annyi a letöltések száma a React esetén, mint a másik 2 keretrendszernél.
 
 %----------------------------------------------------------------------------
-\subsection{Választás}
+\subsection{Konkluzió}
 %----------------------------------------------------------------------------
 A fent felsoroltakat alapul véve végül a React-re esett a választásom. A virtuális DOM és az aktív fejlesztői közösség hatalmas elönyt jelent a fejlesztés során. A döntést segítette, hogy ezzel a keretrendszerrel már volt szerencsém dolgozni és pozitív élmény volt.
 
@@ -122,7 +122,6 @@ Az összes kérést erre a végpontra küldjük a megfelelő tartalommal, melyet
 A bevett REST API-s megoldással szembeni hatalmas előnye, hogy mindig azt kapjuk amit kérünk. A POST kérés törzsében elhelyezett GraphQL operation pontosan meghatározza, hogy milyen entitások milyen tulajdonságait szeretnénk visszakapni. Ez a GraphQL operation nagyon hasonlít a JSON formátumra, azonban egy-két dologban eltér attól. Lehetőségünk van több entitásból is adatot lekérni egyetlen kéréssel, így csökkentve a HTTP üzenetek számát.
 
 A kéréseket minden esetben egy (vagy több) úgynevezett resolver szolgálja ki nekünk. 
-
 A resolverekből 3 fő típust különböztetünk meg Query, Mutation és Subscription.
 
 \subsubsection{Query}
@@ -136,7 +135,7 @@ Ahogy a nevéből is következtethetünk rá főként adatok módosítására é
 A standard GraphQL implementáció tartalmazza a websocket kommunikációt is. A subscription-ök segítségével lehetősége van a kliensnek feliratkozni bizonyos eseményekre, melyek bekövetkeztéről azonnal értesül socket kapcsolaton keresztül.
 
 %----------------------------------------------------------------------------
-\subsection{Döntés}
+\subsection{Konkluzió}
 %----------------------------------------------------------------------------
 A fent leírt szempontokat figyelembe véve a végső választásomat a GraphQL mellett tettem le.
 Tanulmányaim során rengetegszer találkoztam REST API-t használó vagy annak megvalósításák követelő feladattal, így ezen opció választása esetén nem mélyítettem volna el a tudásomat egy kevésbé ismert, azonban mégis remek technológiában.
@@ -165,9 +164,8 @@ Az ORM egy absztrakciós réteget helyez az adatbázis és az alkalmazás közé
 %----------------------------------------------------------------------------
 
 %----------------------------------------------------------------------------
-\subsection{Döntés}
+\subsection{Konkluzió}
 %----------------------------------------------------------------------------
-
 
 \begin{figure}[!ht]
   \centering
