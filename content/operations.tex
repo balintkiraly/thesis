@@ -46,6 +46,8 @@ CMD ["node_modules/.bin/next", "start"]
 
 A backend-hez tartozó konténer sokkalta egyszerűbb. 
 A hozzá tartozó docker-compose file tartalmazza a backend és az adatbázis elindítását, valamint a közöttük lévő kapcsolat kiépítését és a Prisma Studio indítását is.
+A Prisma Studio és az alkalmazás konkurensen futnak egy containeren belül.
+Fontos megjegyezni, hogy a Studiot csak feltétlenül szükséges esetben használjuk, érdemes tiltani a hozzáférést ugyanis nem tartalmaz semmilyen beépített jelszavas védelmet.
 
 \begin{lstlisting}[language=TeX, caption=Backend docker compose]
 version: '3'
@@ -53,9 +55,9 @@ services:
   server:
     build: .
     links:
-      - mysql
+      - postgres
     depends_on:
-      - mysql
+      - postgres
     ports:
       - '${SERVER_PORT}:4000'
       - '${STUDIO_PORT}:5555'
@@ -65,21 +67,20 @@ services:
       APP_SECRET: ${APP_SECRET}
     networks:
       - server-network
-  mysql:
-    image: mysql:5.7
+  postgres:
+    image: postgres:12.5
     restart: always
     environment:
-      MYSQL_USER: prisma
-      MYSQL_PASSWORD: prisma
-      MYSQL_ROOT_PASSWORD: prisma
-      MYSQL_DATABASE: prisma
+      POSTGRES_USER: prisma
+      POSTGRES_PASSWORD: prisma
+      POSTGRES_DB: prisma
     networks:
       server-network:
         aliases:
-          - mysql.db
+          - postgresql.db
     volumes:
-      - db_data:/var/lib/mysql
-volumes: 
+      - db_data:/var/lib/postgresql/data
+volumes:
   db_data:
 networks:
   server-network:
