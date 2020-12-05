@@ -136,20 +136,33 @@ Az alkalmazás nem rendelkezik olyan követelménnyel, amely komoly adatbázis m
 Ezért a választás szempont elsődlegesen az volt, hogy a már kiválasztott technológiákkal egyűtt a lehető legkényelmesebb és legjobb fejlesztési élményt nyújtsa. Ennek követelménye az volt, hogy adatbázisok helyett ORM rendszerek összehasonlítását kezdtem el.
 Az ORM egy absztrakciós réteget helyez az adatbázis és az alkalmazás közé, így elfedve a lekérdező nyelvet, ez nagyobb biztonságot és gyorsabb fejlesztést eredményez.
 
-%----------------------------------------------------------------------------
-\subsection{TypeORM}
-
+Az ORM-ek többsége rengeteg dologban hasonlít, így az összehasonlítás során leginkább a különbségekre fókuszálok.
 %----------------------------------------------------------------------------
 
 \subsection{Sequelize}
+Több, mint 7 éve elérhető ORM rendszer, az ötös verziótól beépített TypeScript támogatással érkezik.
+A sequelize-cli segítségével generálhatunk modelleket és migrációkat is.
 %----------------------------------------------------------------------------
 
+\subsection{TypeORM}
+Fejlesztése 5 éve kezdödött, azonban a mai napig sem érte el az 1.0-ás verziót.
+Beépített TypeScript támogatással rendelkezik és a Sequelize-hoz hasonlóan generálhatunk modelleket és migrációkat.
 %----------------------------------------------------------------------------
+
+
 \subsection{Mongoose}
-A Mongoose ORM a mongoDB kezeléséhez létrejhozott csomag. A 
+A Mongoose ORM a mongoDB kezeléséhez több, mint 10 évvel ezelőtt létrehozott csomag. 
+Mivel a mongoDB egy document alapú NoSQL adatbáizs, így még fontosabb az adatok validációja.
+A mongoose séma természetesen kezeli ezt, azonban a migrációk meglévő adatok esetén problémás és sok hibalehetőséget rejt.
+A TypeScript támogatás megoldható de szintén körülményes.
 %----------------------------------------------------------------------------
 
 \subsection{Prisma}
+2020 júniusában jelentették be a 2.0-ás verziót, amely az 1.0 alapoktól újraírt változata.
+Teljes körű TypeScript támogatás érkezik és rengeteg extra funkcióval.
+A migrációs generálása automatikus, így a séma módosítása után automatikus generálható bármilyen fejlesztői beavatkozás nélkül.
+Természetesen ha adatmigráció is szükséges azt nekünk kell kezelnünk.
+A Prisma egy beépített Studio nevű grafikus interface-szel érkezik, így teljes grafikus hozzáférést kapunk az adatbázishoz bármilyen külső megoldás nélkül.
 
 %----------------------------------------------------------------------------
 
