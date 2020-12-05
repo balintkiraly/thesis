@@ -4,17 +4,35 @@
 %----------------------------------------------------------------------------
 
 \section{Backend}
-
+A backend architekurális felépítéséről a korábbi fejezetben volt szó. 
+Most térjünk át az egyes rétegek és egyes funkciók megvalósításának bemutatására.
 %----------------------------------------------------------------------------
 
-\subsection{GraphQL séma}
-Playground es dokumentáció
+\subsection{GraphQL Playground}
+A legtöbb GraphQL server-hez lehetőségünk nyilik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
+Az alkalmazásban én a GraphQL Playground-ot használtam, a konfigurációt úgy valosítottam meg, hogy éles környezetbe ne szolgálja ki ezt a felületet, csak feljesztői környezet estén.
+Ezt környezeti változók segítségével oldaottam meg.
+
+GraphQL Playground es dokumentáció
+%----------------------------------------------------------------------------
+
+\subsection{Modellek és kapcsolatok}
+modellek és kapcsolatok
+%----------------------------------------------------------------------------
+
+\subsection{Resolver felépítése}
+
+resolver felépítése
 %----------------------------------------------------------------------------
 
 \subsection{Authentikáció és authorizáció}
 GraphQL Shield és JWT
+
 shield szabályok
-JWT Ábra, token kezelés kód magyarázat
+
+JWT Ábra, token kezelés, kód magyarázat
+
+
 %----------------------------------------------------------------------------
 
 \section{Frontend}
@@ -27,12 +45,24 @@ NextJS routing mappa szerkezet lista/kép
 
 \subsection{Kódgenerálás}
 %----------------------------------------------------------------------------
+
 Apollo codegen
+
 hook példa, és használata
 
 %----------------------------------------------------------------------------
 
+\subsection{Validáció}
+
+Yup validációs séma és react form hook
+%----------------------------------------------------------------------------
+
 \subsection{Felhasználói felület}
 ChakraUI
-screenshotok az alkalmazásból példa kód, téma definiálás, dark mode
+
+screenshotok az alkalmazásból
+példa kód
+téma definiálás
+dark mode
+
 %----------------------------------------------------------------------------

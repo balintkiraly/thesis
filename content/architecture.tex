@@ -16,9 +16,19 @@ Tanulmányaim során ezzel a tervezési metodikával találkoztam és olyannyira
   \centering
   \includegraphics[width=150mm, keepaspectratio]{figures/db.png}
   \caption{Adatbázis séma}
-  \label{fig:backend}
+  \label{fig:db}
 \end{figure}
 
+Az adatbázis sémát a követleményeket figyelembe véve hoztam létre.
+Az ábrán (\refstruc{fig:db}) átható, hogy egy eszköz (Item) tartozhat tárolóhoz (Storage) és raktárhoz (Warehosue) is. 
+Erre azért volt szükség, mert a követelmények között szerepelt az ideiglenes tároló fogalma, ami a tárolók közötti eszköz mozgatást megoldását szolgálja.
+Ennek megvalósítására új entitás bevezetése felesleges volt. Opciók között szerepelt még, hogy a tárolók entitásban egy kitüntetett tárolót használunk erre a célra, azonban ez rengeteg elágazást ereményezet volna a kódban.
+Így egyszerű tervezési döntés értelmében, ezek a mozgatás során nem tartoznak tárolóhoz, csak a raktárhoz, amely ezáltal betölti az edeiglenes tároló szerepét.
+
+A naplózás megoldásánál igyekesztem egy generikus megoldást létrehozni.
+A napló (Log) tábla csak egy tényleges kapcsolatot tartalmaz a naplóbejegyzés létrejöttét kiváltó felhasználóra mutatva.
+A későbbi feljesztések megkönnyítése érdekében az eszközök és a naplóbejegyzések között nincs tényleges adatbázis kapcsolat.
+A kapcsolatot az entitás azonosítója (entityID) és entitás típusa (entityType) határozza meg, így biztosítva, hogy bármilyen entitáshoz készülhessen naplóbejegyzés egységes módon.
 %----------------------------------------------------------------------------
 
 \section{Backend felépítése}
@@ -45,6 +55,14 @@ Fontos, hogy az itt végrehajtott modósítások nem várt működéshez is veze
 
 \section{Frontend felépítése}
 
+Ahogy azt a korábbi fejezetekben taglaltam a kliens alkalmazás megvalósításához React-et azon belül pedig NextJS-t használtam.
+A backendhez csatlakozást az Apollo Client könyvtárral oldottam meg. 
+Az Apollo Client és az Apollo Server együtt egy nagyon jól és könnyen használható rendszert alkotnak.
+A Client megkapja a Server-től a GraphQL sémát, így fejlesztés közben kódkiegészítéssel és tipus ellenörzéssel írhatjuk a lekérdezéseinket.
+Az Apollo Client a komm unikáció mellett a gyórsírótárazást is kezeli, így biztosítva az alkalmazás lehető leggyorsabb működését.
+Ezeken felül lehetőségünk nyílik kódgenerálásra is.
+A megírt GraphQL Query és GraphQL Mutation kódokból React hook-okat kapunk, melyekben az állapot- és a típusokkezelés is megvalósított
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=150mm, keepaspectratio]{figures/frontend.png}
@@ -52,12 +70,22 @@ Fontos, hogy az itt végrehajtott modósítások nem várt működéshez is veze
   \label{fig:frontend}
 \end{figure}
 
-Ahogy azt a korábbi fejezetekben taglaltam a kliens alkalmazás megvalósításához React-et azon belül pedig NextJS-t használtam.
-A backendhez csatlakozást az Apollo Client könyvtárral oldottam meg. 
-Az Apollo Client és az Apollo Server együtt egy nagyon jól és könnyen használható rendszert alkotnak.
-A Client megkapja a Server-től a GraphQL sémát, így fejlesztés közben kódkiegészítéssel és tipus ellenörzéssel írhatjuk a lekérdezéseinket.
-Ezen felül lehetőségünk nyílik kódgenerálásra is.
-A megírt GraphQL Query és GraphQL Mutation kódokból React hook-okat kapunk, melyekben az állapot- és a típusokkezelés is megvalósított
+A React-ben a komponensek közötti logika megosztását a Context-ek segítségével valósítothatjuk meg.
+Ennek használaával nem szükséges minden kompononsnek átadni manuálisan a szükséges változókat, hanem elegendő csak egy vagy szükség esetén több provider-t az alkalmazásunk köré rakni.
+A provider-ek segítségével adatot szolgáltathatunk az összes provider-en belüli komponens számára.
+Elegendő csak az alkalmazás belépsi pontjában ezeket a tényleges alkalmazás köré helyeznünk ahogy azt a mellékelt kód is mutatja.
+
+\begin{lstlisting}[style=ES6, caption=Frontend-hez használt provider-ek]    
+<ApolloProvider client={client}>
+  <ChakraProvider>
+    <AuthProvider>
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
+    </AuthProvider>
+  </ChakraProvider>
+</ApolloProvider>
+\end{lstlisting}
 
 %----------------------------------------------------------------------------
 
