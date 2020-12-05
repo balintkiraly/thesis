@@ -13,12 +13,7 @@ A legtöbb GraphQL server-hez lehetőségünk nyilik valamilyen interaktív Grap
 Az alkalmazásban én a GraphQL Playground-ot használtam, a konfigurációt úgy valosítottam meg, hogy éles környezetbe ne szolgálja ki ezt a felületet, csak feljesztői környezet estén.
 Ezt környezeti változók segítségével oldaottam meg.
 
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width=150mm, keepaspectratio]{figures/playground.png}
-  \caption{GraphQL Playground}
-  \label{fig:playground}
-\end{figure}
+Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszhetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válasz típusával együtt.
 
 \begin{figure}[!ht]
   \centering
@@ -26,11 +21,14 @@ Ezt környezeti változók segítségével oldaottam meg.
   \caption{GraphQL Playground Docs}
   \label{fig:playgroundDocs}
 \end{figure}
-GraphQL Playground es dokumentáció
 %----------------------------------------------------------------------------
 
 \subsection{Modellek és kapcsolatok}
-Az egyszerűség kedvéért egy az alkalmazásban nem létező modelen mutatom be a működést.
+Az egyszerűség és teljesség kedvéért egy, az alkalmazásban nem létező modelen mutatom be a működést.
+
+A model definiálásakor megadhatunk bármelyiket a sémában szereplő attributumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
+A kapcsolatokat is egyszerű mező ként kezelhetjük, beállítható továbba az is, hogy a kapcsolat opcionális vagy kötelező.
+Lehetőségünk van egyedi attributumok létrehozására is, amely az adot modell bármely attributumábaló származtaható, de tetszőleges kód futtatása is megengedett.
 
 \begin{lstlisting}[style=ES6, caption={Példa model}]
 import { objectType } from '@nexus/schema'
@@ -43,6 +41,11 @@ export const TypeOfModel = objectType({
     t.field('user', {
       type: 'User',
       nullable: false,
+    }),
+    t.field('custom', {
+      type: 'User',
+      nullable: false,
+      resolve: ({id}) => `#${id}`
     })
   },
 })
@@ -50,8 +53,10 @@ export const TypeOfModel = objectType({
 %----------------------------------------------------------------------------
 
 \subsection{Resolver felépítése}
-
-
+A Mutation-ökhöz és Query-khez tartozó resolverek minden esetben tartalmaznak egy függvényt, amely eldönti, hogy meghívásukkor milyen kódrészlet fusson le.
+Ezen felül tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhez vissza.
+Opcionálisan tartalmazhat egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
+Ezen fellül ezeknek a paramétereknek a típusát is meghatározza. 
 \begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver}]
 t.field('createItem', {
   type: 'Item',
@@ -78,7 +83,10 @@ t.field('createItem', {
 %----------------------------------------------------------------------------
 
 \subsection{Authentikáció és authorizáció}
-GraphQL Shield és JWT
+Az authentikáció és authorizáció ellenörzésére a GraphQL Shield-et használtam. 
+Ennek segítségével egy egyszerű JavaScript object-tel megadható, hogy egyes Query-k és Mutation-ök esetén, milyen validáció fusson le.
+Lehetőséget biztosít egy úgynevezett fallback rule bállítására is, amely minden külön nem specifikált kérésnél fut le.
+Ezzel valosítottam meg a bejelentkezett felhasználó validását.
 
 \begin{lstlisting}[style=ES6, caption={GraphQL Shield}]
 export const shield = GQLShield(
@@ -99,10 +107,15 @@ export const shield = GQLShield(
 )
 \end{lstlisting}
 
-shield szabályok
+Az authentikációt JSON Web Token segítségével végzem. 
+Sikeres bejelentkezés esetén a backend egy tokent küld a frontend részére, melyet a böngészőbe elmentve a későbbiekben minden kéréshez csatolni tudunk.
 
-JWT Ábra, token kezelés, kód magyarázat
-
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/login.png}
+  \caption{JWT Bejelentkezés}
+  \label{fig:JWT}
+\end{figure}
 
 %----------------------------------------------------------------------------
 
@@ -111,10 +124,15 @@ JWT Ábra, token kezelés, kód magyarázat
 %----------------------------------------------------------------------------
 
 \subsection{Útvonalválasztás}
-NextJS routing mappa szerkezet lista/kép
+NextJS használatával alapértelmezetten fájl alapú útvonalválasztást használhatunk.
+Ez azt jelenti, hogy az oldal URL-jét a fájl neve és a szülő mappák nevei határozzák meg.
+Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
+A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
+Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
+
 \begin{figure}[!ht]
   \centering
-  \includegraphics[width=50mm, keepaspectratio]{figures/next_routing.png}
+  \includegraphics[width=55mm, keepaspectratio]{figures/next_routing.png}
   \caption{Next mappa szerkezeten alapulú routing}
   \label{fig:NextRouting}
 \end{figure}
@@ -124,10 +142,10 @@ NextJS routing mappa szerkezet lista/kép
 \subsection{Kódgenerálás}
 %----------------------------------------------------------------------------
 
-Apollo codegen
+Ahogy az korábban már többször is szóba került az Apollo-nak hála remek kódgenerálási lehetőségeink vannak.
+Alább egy példa keretein belül szeretném bemutatni ennek használatát
 
-hook példa, és használata
-
+A GraphQL Mutation-t paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja lehetséges paramétereket. 
 \begin{lstlisting}[style=ES6, caption={GraphQL Shield}]
 mutation Login($email: String!, $password: String!) {
   login(data: { email: $email, password: $password }) {
@@ -135,6 +153,11 @@ mutation Login($email: String!, $password: String!) {
   }
 }
 \end{lstlisting}
+
+A generálást futtatva azonnal használhatjuk az elkészült hook-okat (jelen esetben a useLoginMutation hook-ot).
+
+A hálozati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
+Például töltés esetén egy töltő képernyőt megjelenítani, vagy a hibákat kezelni.
 
 \begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet}]
 const router = useRouter()
@@ -164,8 +187,10 @@ const onSubmit = async (inputData) => {
 %----------------------------------------------------------------------------
 
 \subsection{Validáció}
-
-Yup validációs séma és react form hook
+A felhasználótól érkező adatok minden esetben validálva vannak, ehhez a yup csomagot használtam.
+A yup segítségével definiálhatunk egy sémát, amelyre a bemenetnek illeszkedni kell. 
+Hiba esetén egy hibaüzenetet is generál az egyes mezőkhöz, így visszacsatolást adhatunk a felhasználónak, hogy melyik adat hibás és miért.
+Amennyiben szeretnék eltérni az alapértelmezett beállításoktól, a hibaüzeneteket szövegezését a séma definiálással együtt adhatjuk meg.
 
 \begin{lstlisting}[style=ES6, caption={Esköz validációs séma}]
 import * as yup from 'yup'
@@ -183,12 +208,17 @@ export const itemSchema = yup.object().shape({
 })
 \end{lstlisting}
 
+A formok elküldését egy React hook-kal valósítottam meg.
+A hook visszaadja a hibákat és lehetőséget biztosít a form újrabeállítására is.
+Minden beviteli mezőt regisztrálni kell a form hook-ba, így biztosítva azok elérését.
 
-\begin{lstlisting}[style=ES6, caption={useForm hook}]
+\begin{lstlisting}[style=ES6, caption={Regisztrációnál használt form hook}]
 const { register, handleSubmit, reset, errors } = useForm<Inputs>({
   resolver: yupResolver(itemSchema),
 })
 \end{lstlisting}
+
+A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetben az adott beviteli mező neve.
 
 \begin{lstlisting}[style=ES6, caption={Form}]
 <form onSubmit={handleSubmit(onSubmit)}>
@@ -204,13 +234,19 @@ const { register, handleSubmit, reset, errors } = useForm<Inputs>({
 %----------------------------------------------------------------------------
 
 \subsection{Felhasználói felület}
-ChakraUI
+A felhasználói felületet a ChakraUI könyvtár segítségével készítettem el.
+A Chakra hála az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=150mm, keepaspectratio]{figures/reg.png}
   \caption{Regisztrációs oldal}
   \label{fig:reg}
 \end{figure}
+
+A regisztrációs oldalon (\refstruc{fig:reg}) láthatjuk a beiteli mezőket kölünböző állapotban.
+Hibásan kitöltött mező esetén felhasználó azonnali visszajelzést kap a hibás adatról.
+Javítás után a hibaüzenet automatikusan eltűník, amint megfelelő formátumú adatot gépelt be a felhasználó.
 
 \begin{figure}[!ht]
   \centering
@@ -219,6 +255,13 @@ ChakraUI
   \label{fig:search}
 \end{figure}
 
+A keresés eredményét egy 3 oszlopos táblázatban (\refstruc{fig:search}) jelenítjük meg.
+A három oszlop segítségével egyértelműen meghatározható a keresett eszköz holléte.
+Lehetőségünk van a keresett eszköz raktárára, tárolójára vagy magára az eszközre navigálnunk.
+
+A tároló nézetén (\refstruc{fig:storage}) a kurzort valamelyik eszköz fölé mozgatva megjelenítjük annak a nevét és ezen felül kiemeljük a listában is, hogy elősegítsük az azonosítást.
+Természetesen a másik irányba is megvalósul a kiemelés, tehát ha a listában választjük ki, akkor a térképes nézeten kiemelten fogjuk látni az éppen kiválasztott eszközt.
+
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=150mm, keepaspectratio]{figures/storage.png}
@@ -226,9 +269,21 @@ ChakraUI
   \label{fig:storage}
 \end{figure}
 
-screenshotok az alkalmazásból
-példa kód
-téma definiálás
-dark mode
+A raktár nézetén belül a tárolóhoz hasonlóan kiemeléssel jelezzük az éppen kijelölt tárolót.
+A tárolókrol extra információként megjelenítjük az adott tároló becsült kihasználását.
+A becslés a tároló méretéből és a benne tárolt eszközök méretéből számolt értkét.
+Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat általában nem lehet 100\%-osan kitölteni.
+
+\begin{figure}[!ht]
+  \centering
+  \includegraphics[width=150mm, keepaspectratio]{figures/dark_mode.png}
+  \caption{Dark mode}
+  \label{fig:darkMode}
+\end{figure}
+A ChakraUI segítségével egyszerűen megvalósítható a sötét és világos téma is az alkalmazáshoz, valamint az e kettő közötti váltás is.
+Ez jelen esetben egy sötétkék árnyalatú designt (\refstruc{fig:darkMode}) eredményezett. 
+A bejelentkezett felhasználó az oldal alján található gomb segítségével válathat témát.
+A válaszott témát az alkalmazás automatiksan elmenti a böngésző helyi tárolójába, így az oldal újboli meglátogatásakor már a korábban kiválasztott téma lesz érvényes.
+
 
 %----------------------------------------------------------------------------

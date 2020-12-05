@@ -14,6 +14,25 @@ A frontend teszteléséhez úgy nevezett end-to-end teszteket készítettem.
 Az end-to-end tesztek (röviden E2E) esetén a teszt a felhasználó viselkedését szimulálja.
 Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki és figyeli a kirenderelt képet a tesztnek megfelelő egyezést keresve.
 
+Ezt a Jest és a Playwright package-ek segítségével valósítottam meg.
+A tesztelés során szükséges van bizonyos adatbázis adatokra, ezeket környezeti változókba helyeztem.
+Jelenleg a tesztek csak lokális környezetben futnak, de a későbbi fejlesztések során is biztosítva lesz, hogy adatbázisból adatok ne kerüljenek ki.
+
+
+\begin{lstlisting}[style=ES6, caption={Bejelentkezés E2E teszt}]
+it('should allow users to sign in', async () => {
+  await page.goto('http://localhost:3000/auth/login')
+  await page.waitForTimeout(1000)
+  await page.fill('[name="email"]', process.env.TEST_USERNAME)
+  await page.fill('[name="password"]', process.env.TEST_PASSWORD)
+  await page.click('[type=submit]')
+
+  await page.waitForTimeout(1000)
+  await expect(page.url()).toBe('http://localhost:3000/')
+  await expect(page).toHaveText('h2', 'Warehouses')
+})
+\end{lstlisting}
+
 %----------------------------------------------------------------------------
 
 \section{Backend tesztelés}
@@ -26,25 +45,7 @@ Azonban a Prisma jelenlegi verziója nem támogatja az enumerációt SQLite adat
 Emiatt itt is egy PostgreSQL adatbázissal kellett dolgozom.
 A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véltelenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals ereményt váltana ki a tesztekből.
 
-A tesztek során a GraphQL resolver-eket hívtam meg különböző query-kel és mutation-ökkel.
-
-\begin{lstlisting}[style=ES6, caption={Teszt atadbázis migrció}]
-await execSync(`${prismaBinary} migrate up --create-db --experimental`, {
-    env: {
-    ...process.env,
-    DATABASE_URL: databaseUrl,
-    },
-})
-\end{lstlisting}
-
-\begin{lstlisting}[style=ES6, caption=Teszt adatbázis törlése]    
-const client = new Client({
-    connectionString: databaseUrl,
-})
-await client.connect()
-await client.query(`DROP SCHEMA IF EXISTS "test" CASCADE`)
-await client.end()
-\end{lstlisting}
+A tesztek során a GraphQL végpontot hívtam meg különböző query-kel és mutation-ökkel.
 
 
 \begin{lstlisting}[style=ES6, caption=Regisztráció első teszt eset]    
