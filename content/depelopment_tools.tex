@@ -1,4 +1,4 @@
-
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Fejlesztést segítő eszközök}
 %----------------------------------------------------------------------------
@@ -30,13 +30,13 @@ A linter egy viszonylag gyors lefutású és kevés erőforrást igénylő actio
 
 %----------------------------------------------------------------------------
 \subsection{Statikus kódellenörzés}
-A statikus kódellenörzést egy a GitHub által ajánlott megoldással valósítottam meg a CodeQL-lel.
+A statikus kódellenőrzést egy a GitHub által ajánlott megoldással valósítottam meg a CodeQL-lel.
 Mivel ez egy több erőforrást igénylő folyamat ezért a futtatása nem történik meg minden commitnál.
 Csak ha a főágba történik a commit vagy ha Pull Request-et kezdeményezek, melynek a cél ága a főág.
 
 A képen (\refstruc{fig:securityCheck}) egy a GitHub által észlelt lehetséges sebezhetőség detektálása látható.
 A kód analízis során a rendszer észlelte, hogy shell command futtatása történik úgy, hogy annak tartalma környezeti változóból származik.
-A figyelmeztetés jelen esetben egy fals riasztás volt, mert a sérülékny kódrészlet az alkalmazása futása közben nem érhető el, ugyanis a teszt környezet kiallakitására szolgál.
+A figyelmeztetés jelen esetben egy fals riasztás volt, mert a sérülékeny kódrészlet az alkalmazása futása közben nem érhető el, ugyanis a teszt környezet kialakítására szolgál.
 
 \begin{figure}[!ht]
   \centering
@@ -48,7 +48,7 @@ A figyelmeztetés jelen esetben egy fals riasztás volt, mert a sérülékny kó
 
 \section{Git hook}
 Git használata esetén rengeteg eseményhez definiálhatunk úgynevezett hook-okat.
-Ezek segítéségvel bizonyos események után, előtt vagy közben futtathatunk tetszőleges kódot.
+Ezek segítségével bizonyos események után, előtt vagy közben futtathatunk tetszőleges kódot.
 Az alkalmazásomban egy linter-t állítottam be a pre-commit hookra, az-az a commit elkészítése előtt minden alkalommal lefut a linter így biztosítva a kódminőségét.
 
 \begin{lstlisting}[style=ES6, caption=Pre-commit hook beállításai]    
@@ -83,7 +83,7 @@ Ingyenes keretek között csak egy ág automatikus kitelepítésére van lehető
 \subsection{Vercel}
 A frontend üzemeltetéséhez a Vercel-t használtam. 
 A Herokuhoz hasonlóan remek GitHub integrációval és webes felülettel rendelkezik. 
-Lehetőségünk nyílik a Pull Request-ekhez egy előnézeti alkalmazás kitelepítésére is, ezzel elősegítve a csapatmunkában egymás munkájának ellenörzését.
+Lehetőségünk nyílik a Pull Request-ekhez egy előnézeti alkalmazás kitelepítésére is, ezzel elősegítve a csapatmunkában egymás munkájának ellenőrzését.
 Ilyenkor a Vercel automatikusan hozzáad egy megjegyzést (\refstruc{fig:vercel}) a Pull Requesthez az előnézeti alkalmazás linkjével.
 
 \begin{figure}[!ht]

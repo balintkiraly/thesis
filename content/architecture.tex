@@ -1,8 +1,9 @@
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Architektúra}
 %----------------------------------------------------------------------------
 Az alkalmazás 3 fő részre bontható frontend, backend valamint adatbázis.
-E három réteg együttesen felel azért, hogy a felhasználó böngészőn keresztül érkező interrakcióit kezelje és az állapotot tárolja.
+E három réteg együttesen felel azért, hogy a felhasználó böngészőn keresztül érkező interakciókat kezelje és az állapotot tárolja.
 %----------------------------------------------------------------------------
 
 \section{Adatbázis séma}
@@ -10,7 +11,7 @@ Az adatbázis migrációját nem kellett manuálisan végrehajtanom hála a Pris
 A Prisma - amellett, hogy kezeli a migrációkat - egy absztrakciós réteget ad az adatbázisunk és az alkalmazásunk közé olyan szinten, hogy teljesen elfedi az adatbázist a fejlesztő elöl.
 
 Ennek ellenére mégis relációs adatbázist terveztem, majd ezt ültettem át a Prisma által kíván sémába.
-Tanulmányaim során ezzel a tervezési metodikával találkoztam és olyannyira rögzült, hogy elöszőr nehéz volt kicsit más szemszögből vizsgálni a problémát.
+Tanulmányaim során ezzel a tervezési metodikával találkoztam és olyannyira rögzült, hogy először nehéz volt kicsit más szemszögből vizsgálni a problémát.
 
 \begin{figure}[!ht]
   \centering
@@ -19,15 +20,15 @@ Tanulmányaim során ezzel a tervezési metodikával találkoztam és olyannyira
   \label{fig:db}
 \end{figure}
 
-Az adatbázis sémát a követleményeket figyelembe véve hoztam létre.
+Az adatbázis sémát a követelményeket figyelembe véve hoztam létre.
 Az ábrán (\refstruc{fig:db}) átható, hogy egy eszköz (Item) tartozhat tárolóhoz (Storage) és raktárhoz (Warehosue) is. 
 Erre azért volt szükség, mert a követelmények között szerepelt az ideiglenes tároló fogalma, ami a tárolók közötti eszköz mozgatást megoldását szolgálja.
-Ennek megvalósítására új entitás bevezetése felesleges volt. Opciók között szerepelt még, hogy a tárolók entitásban egy kitüntetett tárolót használunk erre a célra, azonban ez rengeteg elágazást ereményezet volna a kódban.
-Így egyszerű tervezési döntés értelmében, ezek a mozgatás során nem tartoznak tárolóhoz, csak a raktárhoz, amely ezáltal betölti az edeiglenes tároló szerepét.
+Ennek megvalósítására új entitás bevezetése felesleges volt. Opciók között szerepelt még, hogy a tárolók entitásban egy kitüntetett tárolót használunk erre a célra, azonban ez rengeteg elágazást eredményezett volna a kódban.
+Így egyszerű tervezési döntés értelmében, ezek a mozgatás során nem tartoznak tárolóhoz, csak a raktárhoz, amely ezáltal betölti az ideiglenes tároló szerepét.
 
-A naplózás megoldásánál igyekesztem egy generikus megoldást létrehozni.
+A naplózás megoldásánál igyekeztem egy generikus megoldást létrehozni.
 A napló (Log) tábla csak egy tényleges kapcsolatot tartalmaz a naplóbejegyzés létrejöttét kiváltó felhasználóra mutatva.
-A későbbi feljesztések megkönnyítése érdekében az eszközök és a naplóbejegyzések között nincs tényleges adatbázis kapcsolat.
+A későbbi fejlesztések megkönnyítése érdekében az eszközök és a naplóbejegyzések között nincs tényleges adatbázis kapcsolat.
 A kapcsolatot az entitás azonosítója (entityID) és entitás típusa (entityType) határozza meg, így biztosítva, hogy bármilyen entitáshoz készülhessen naplóbejegyzés egységes módon.
 %----------------------------------------------------------------------------
 
@@ -35,9 +36,9 @@ A kapcsolatot az entitás azonosítója (entityID) és entitás típusa (entityT
 Az alkalmazás üzleti logikáját megvalósító rész egy NodeJS-re épülő rendszer.
 Az alkalmazás egyetlen egy végpontot ajánl a kliensek számára.
 A kéréseket egy express server fogadja, a feldolgozásának mikéntjéről pedig egy Apollo server gondoskodik, itt történik meg a GraphQL elemzése és ez alapján a megfelelő kódrészlet futtatása.
-Az Apollo server lehetőséget nyújt middelware-ek definiálsára, melyek minden kérés kiszolgálása elött lefutnak.
-Erre a lehetőségre épít a GraphQL Shield nevű könyvtár, aminek segítségével minden egyes GraphQL műveletre megadhatünk ahhoz szükséges előfeltételeket egyszerű szabályok segítségével.
-Ilyen szabályokkal valósítottam meg a teljes authorizációt és az authentikáció ellenörzését is.
+Az Apollo server lehetőséget nyújt middelware-ek definiálásra, melyek minden kérés kiszolgálása elött lefutnak.
+Erre a lehetőségre épít a GraphQL Shield nevű könyvtár, aminek segítségével minden egyes GraphQL műveletre megadhatunk ahhoz szükséges előfeltételeket egyszerű szabályok segítségével.
+Ilyen szabályokkal valósítottam meg a teljes autorizációt és az autentikáció ellenőrzését is.
 
 \begin{figure}[!ht]
   \centering
@@ -46,10 +47,10 @@ Ilyen szabályokkal valósítottam meg a teljes authorizációt és az authentik
   \label{fig:backend}
 \end{figure}
 
-A megfelelő kódrészlet és a middelware-ek futtatása után, a Prismán keresztül az adatbázishoz fordulunk adat lekérés vagy modósítás miatt.
+A megfelelő kódrészlet és a middelware-ek futtatása után, a Prisma-án keresztül az adatbázishoz fordulunk adat lekérés vagy módosítás miatt.
 
-Az ábrán (\refstruc{fig:backend}) világosan látszik, hogy a Prisma által nyújtott studio az adatbázishoz csatlakozik, így az általunk írt üzleti logika nem fog érvenyesülni.
-Fontos, hogy az itt végrehajtott modósítások nem várt működéshez is vezethetnek.
+Az ábrán (\refstruc{fig:backend}) világosan látszik, hogy a Prisma által nyújtott studio az adatbázishoz csatlakozik, így az általunk írt üzleti logika nem fog érvényesülni.
+Fontos, hogy az itt végrehajtott módosítások nem várt működéshez is vezethetnek.
 
 %----------------------------------------------------------------------------
 
@@ -58,10 +59,10 @@ Fontos, hogy az itt végrehajtott modósítások nem várt működéshez is veze
 Ahogy azt a korábbi fejezetekben taglaltam a kliens alkalmazás megvalósításához React-et azon belül pedig NextJS-t használtam.
 A backendhez csatlakozást az Apollo Client könyvtárral oldottam meg. 
 Az Apollo Client és az Apollo Server együtt egy nagyon jól és könnyen használható rendszert alkotnak.
-A Client megkapja a Server-től a GraphQL sémát, így fejlesztés közben kódkiegészítéssel és tipus ellenörzéssel írhatjuk a lekérdezéseinket.
-Az Apollo Client a komm unikáció mellett a gyórsírótárazást is kezeli, így biztosítva az alkalmazás lehető leggyorsabb működését.
+A Client megkapja a Server-től a GraphQL sémát, így fejlesztés közben kódkiegészítéssel és tipus ellenőrzéssel írhatjuk a lekérdezéseinket.
+Az Apollo Client a kommunikáció mellett a gyorsírótárazást is kezeli, így biztosítva az alkalmazás lehető leggyorsabb működését.
 Ezeken felül lehetőségünk nyílik kódgenerálásra is.
-A megírt GraphQL Query és GraphQL Mutation kódokból React hook-okat kapunk, melyekben az állapot- és a típusokkezelés is megvalósított
+A megírt GraphQL Query és GraphQL Mutation kódokból React hook-okat kapunk, melyekben az állapot- és a típusok kezelése is megvalósított
 
 \begin{figure}[!ht]
   \centering
@@ -70,10 +71,10 @@ A megírt GraphQL Query és GraphQL Mutation kódokból React hook-okat kapunk, 
   \label{fig:frontend}
 \end{figure}
 
-A React-ben a komponensek közötti logika megosztását a Context-ek segítségével valósítothatjuk meg.
-Ennek használaával nem szükséges minden kompononsnek átadni manuálisan a szükséges változókat, hanem elegendő csak egy vagy szükség esetén több provider-t az alkalmazásunk köré rakni.
+A React-ben a komponensek közötti logika megosztását a Context-ek segítségével valósíthatjuk meg.
+Ennek használatával nem szükséges minden komponensnek átadni manuálisan a szükséges változókat, hanem elegendő csak egy vagy szükség esetén több provider-t az alkalmazásunk köré rakni.
 A provider-ek segítségével adatot szolgáltathatunk az összes provider-en belüli komponens számára.
-Elegendő csak az alkalmazás belépsi pontjában ezeket a tényleges alkalmazás köré helyeznünk ahogy azt a mellékelt kód is mutatja.
+Elegendő csak az alkalmazás belépési pontjában ezeket a tényleges alkalmazás köré helyeznünk ahogy azt a mellékelt kód is mutatja.
 
 \begin{lstlisting}[style=ES6, caption=Frontend-hez használt provider-ek]    
 <ApolloProvider client={client}>

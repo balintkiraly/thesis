@@ -1,9 +1,10 @@
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Üzemeltetés}
 %----------------------------------------------------------------------------
 Korábbi fejezetben írtam arról, hogy az üzemeltetést Heroku és Vercel segítségével oldottam meg.
-Azonban ez az alkalmazás tényleges üzembehelyezése után nem feltétlenül a legkölcsékhatékényabb módja az üzemeltetésének.
-Ezért igyekeztem alternatívákkat kínálni ay esetleges üzembehelyezőknek.
+Azonban ez az alkalmazás tényleges üzembe helyezése után nem feltétlenül a legköltséghatékonyabb módja az üzemeltetésének.
+Ezért igyekeztem alternatívákat kínálni ay esetleges üzembehelyezőknek.
 
 \section{Docker}
 Az üzemeltetés megkönnyítése érdekében minden komponenshez készítettem egy-egy dockerfile-t és docker-compose file-t.
@@ -12,7 +13,7 @@ A frontendhez tartozó Docker felépítése három lépésből áll. Első lép�
 Második lépésben a TypeScript kódot fordítjuk JavaScript kódra, a harmadik lépésben pedig egyszerűen elindítjuk az alkalmazást.
 
 A három lépéses konténer készítés oka a docker cachelésénel maximális kihasználása.
-Különösen nagy segítség lehet, ha úgyan azt a verziót több környezetbe is szeretnénk élesíteni.
+Különösen nagy segítség lehet, ha ugyan azt a verziót több környezetbe is szeretnénk élesíteni.
 
 \begin{lstlisting}[language=TeX, caption=Frontend Dockerfile]
 # 1 - Install dependecies

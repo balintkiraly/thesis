@@ -1,18 +1,19 @@
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Tesztelés}
 %----------------------------------------------------------------------------
 
 Az alkalmazás működésének validációjában elengedhetetlen lépés a tesztelés.
 A tesztelés ezen felül segíti a fejlesztő munkáját is, bármilyen aprónak tűnő változtatás olykor hatással lehet az alkalmazás más részeire is.
-Előfordulhat, hogy már meglévő és máködő funkciók válnak használhatatlanná új funkciók bevezetése közben.
-Ennek a kockázatát megfelelő tesztlefedetséggel minimálisra csökkenthetjük.
+Előfordulhat, hogy már meglévő és működő funkciók válnak használhatatlanná új funkciók bevezetése közben.
+Ennek a kockázatát megfelelő tesztlefedettséggel minimálisra csökkenthetjük.
 %----------------------------------------------------------------------------
 
 \section{Frontend tesztelés}
 
 A frontend teszteléséhez úgy nevezett end-to-end teszteket készítettem.
 Az end-to-end tesztek (röviden E2E) esetén a teszt a felhasználó viselkedését szimulálja.
-Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki és figyeli a kirenderelt képet a tesztnek megfelelő egyezést keresve.
+Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki és figyeli a renderelt képet a tesztnek megfelelő egyezést keresve.
 
 Ezt a Jest és a Playwright package-ek segítségével valósítottam meg.
 A tesztelés során szükséges van bizonyos adatbázis adatokra, ezeket környezeti változókba helyeztem.
@@ -36,14 +37,14 @@ it('should allow users to sign in', async () => {
 %----------------------------------------------------------------------------
 
 \section{Backend tesztelés}
-A Prisma fejlesztú csapata csupűn pár hónappal ezelött jelentette be a 2.0-ás verziót.
+A Prisma fejlesztő csapata csupán pár hónappal ezelőtt jelentette be a 2.0-ás verziót.
 A folyamatos fejlesztés ellenére is még hiányos az eszközkészlete.
-Ennek köszönhetően teszteléshez sem kinál semmilyen megoldást.
+Ennek köszönhetően teszteléshez sem kínál semmilyen megoldást.
 
 A tesztelési környezet kialakításház egy SQLite adatbázist szerettem volna használni, hogy ne a fejlesztés közben használt adatbázist használjam és ne teljen túl sok időbe a tesztek futtatása.
 Azonban a Prisma jelenlegi verziója nem támogatja az enumerációt SQLite adatbázis esetén.
 Emiatt itt is egy PostgreSQL adatbázissal kellett dolgozom.
-A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véltelenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals ereményt váltana ki a tesztekből.
+A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véletlenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals eredményt váltana ki a tesztekből.
 
 A tesztek során a GraphQL végpontot hívtam meg különböző query-kel és mutation-ökkel.
 

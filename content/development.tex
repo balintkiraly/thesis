@@ -1,19 +1,19 @@
-
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Alkalmazás fejlesztése és működése}
 %----------------------------------------------------------------------------
 
 \section{Backend}
-A backend architekurális felépítéséről a korábbi fejezetben volt szó. 
+A backend architekturális felépítéséről a korábbi fejezetben volt szó. 
 Most térjünk át az egyes rétegek és egyes funkciók megvalósításának bemutatására.
 %----------------------------------------------------------------------------
 
 \subsection{GraphQL Playground}
-A legtöbb GraphQL server-hez lehetőségünk nyilik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
-Az alkalmazásban én a GraphQL Playground-ot használtam, a konfigurációt úgy valosítottam meg, hogy éles környezetbe ne szolgálja ki ezt a felületet, csak feljesztői környezet estén.
-Ezt környezeti változók segítségével oldaottam meg.
+A legtöbb GraphQL server-hez lehetőségünk nyílik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
+Az alkalmazásban én a GraphQL Playground-ot használtam, a konfigurációt úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki ezt a felületet, csak fejlesztői környezet estén.
+Ezt környezeti változók segítségével oldattam meg.
 
-Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszhetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válasz típusával együtt.
+Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válasz típusával együtt.
 
 \begin{figure}[!ht]
   \centering
@@ -24,11 +24,11 @@ Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszhetjük a GraphQL
 %----------------------------------------------------------------------------
 
 \subsection{Modellek és kapcsolatok}
-Az egyszerűség és teljesség kedvéért egy, az alkalmazásban nem létező modelen mutatom be a működést.
+Az egyszerűség és teljesség kedvéért egy, az alkalmazásban nem létező modellen mutatom be a működést.
 
-A model definiálásakor megadhatunk bármelyiket a sémában szereplő attributumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
-A kapcsolatokat is egyszerű mező ként kezelhetjük, beállítható továbba az is, hogy a kapcsolat opcionális vagy kötelező.
-Lehetőségünk van egyedi attributumok létrehozására is, amely az adot modell bármely attributumábaló származtaható, de tetszőleges kód futtatása is megengedett.
+A modell definiálásakor megadhatunk bármelyiket a sémában szereplő attribútumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
+A kapcsolatokat is egyszerű mező ként kezelhetjük, beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező.
+Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett.
 
 \begin{lstlisting}[style=ES6, caption={Példa model}]
 import { objectType } from '@nexus/schema'
@@ -56,7 +56,7 @@ export const TypeOfModel = objectType({
 A Mutation-ökhöz és Query-khez tartozó resolverek minden esetben tartalmaznak egy függvényt, amely eldönti, hogy meghívásukkor milyen kódrészlet fusson le.
 Ezen felül tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhez vissza.
 Opcionálisan tartalmazhat egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
-Ezen fellül ezeknek a paramétereknek a típusát is meghatározza. 
+Ezen felül ezeknek a paramétereknek a típusát is meghatározza. 
 \begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver}]
 t.field('createItem', {
   type: 'Item',
@@ -82,11 +82,11 @@ t.field('createItem', {
 \end{lstlisting}
 %----------------------------------------------------------------------------
 
-\subsection{Authentikáció és authorizáció}
-Az authentikáció és authorizáció ellenörzésére a GraphQL Shield-et használtam. 
+\subsection{Autentikáció és autorizáció}
+Az autentikáció és autorizáció ellenőrzésére a GraphQL Shield-et használtam. 
 Ennek segítségével egy egyszerű JavaScript object-tel megadható, hogy egyes Query-k és Mutation-ök esetén, milyen validáció fusson le.
-Lehetőséget biztosít egy úgynevezett fallback rule bállítására is, amely minden külön nem specifikált kérésnél fut le.
-Ezzel valosítottam meg a bejelentkezett felhasználó validását.
+Lehetőséget biztosít egy úgynevezett fallback rule beállítására is, amely minden külön nem specifikált kérésnél fut le.
+Ezzel valósítottam meg a bejelentkezett felhasználó validálását.
 
 \begin{lstlisting}[style=ES6, caption={GraphQL Shield}]
 export const shield = GQLShield(
@@ -133,7 +133,7 @@ Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de aká
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=55mm, keepaspectratio]{figures/next_routing.png}
-  \caption{Next mappa szerkezeten alapulú routing}
+  \caption{Next mappa szerkezeten alapuló routing}
   \label{fig:NextRouting}
 \end{figure}
 
@@ -156,8 +156,8 @@ mutation Login($email: String!, $password: String!) {
 
 A generálást futtatva azonnal használhatjuk az elkészült hook-okat (jelen esetben a useLoginMutation hook-ot).
 
-A hálozati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
-Például töltés esetén egy töltő képernyőt megjelenítani, vagy a hibákat kezelni.
+A hálózati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
+Például töltés esetén egy töltő képernyőt megjeleníteni, vagy a hibákat kezelni.
 
 \begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet}]
 const router = useRouter()
@@ -209,7 +209,7 @@ export const itemSchema = yup.object().shape({
 \end{lstlisting}
 
 A formok elküldését egy React hook-kal valósítottam meg.
-A hook visszaadja a hibákat és lehetőséget biztosít a form újrabeállítására is.
+A hook visszaadja a hibákat és lehetőséget biztosít a form újra-beállítására is.
 Minden beviteli mezőt regisztrálni kell a form hook-ba, így biztosítva azok elérését.
 
 \begin{lstlisting}[style=ES6, caption={Regisztrációnál használt form hook}]
@@ -244,9 +244,9 @@ A Chakra hála az összes általános komponens egy szép és minden lehetséges
   \label{fig:reg}
 \end{figure}
 
-A regisztrációs oldalon (\refstruc{fig:reg}) láthatjuk a beiteli mezőket kölünböző állapotban.
+A regisztrációs oldalon (\refstruc{fig:reg}) láthatjuk a beviteli mezőket különböző állapotban.
 Hibásan kitöltött mező esetén felhasználó azonnali visszajelzést kap a hibás adatról.
-Javítás után a hibaüzenet automatikusan eltűník, amint megfelelő formátumú adatot gépelt be a felhasználó.
+Javítás után a hibaüzenet automatikusan eltűnik, amint megfelelő formátumú adatot gépelt be a felhasználó.
 
 \begin{figure}[!ht]
   \centering
@@ -260,7 +260,7 @@ A három oszlop segítségével egyértelműen meghatározható a keresett eszk�
 Lehetőségünk van a keresett eszköz raktárára, tárolójára vagy magára az eszközre navigálnunk.
 
 A tároló nézetén (\refstruc{fig:storage}) a kurzort valamelyik eszköz fölé mozgatva megjelenítjük annak a nevét és ezen felül kiemeljük a listában is, hogy elősegítsük az azonosítást.
-Természetesen a másik irányba is megvalósul a kiemelés, tehát ha a listában választjük ki, akkor a térképes nézeten kiemelten fogjuk látni az éppen kiválasztott eszközt.
+Természetesen a másik irányba is megvalósul a kiemelés, tehát ha a listában választjuk ki, akkor a térképes nézeten kiemelten fogjuk látni az éppen kiválasztott eszközt.
 
 \begin{figure}[!ht]
   \centering
@@ -270,8 +270,8 @@ Természetesen a másik irányba is megvalósul a kiemelés, tehát ha a listáb
 \end{figure}
 
 A raktár nézetén belül a tárolóhoz hasonlóan kiemeléssel jelezzük az éppen kijelölt tárolót.
-A tárolókrol extra információként megjelenítjük az adott tároló becsült kihasználását.
-A becslés a tároló méretéből és a benne tárolt eszközök méretéből számolt értkét.
+A tárolókról extra információként megjelenítjük az adott tároló becsült kihasználását.
+A becslés a tároló méretéből és a benne tárolt eszközök méretéből számolt értékét.
 Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat általában nem lehet 100\%-osan kitölteni.
 
 \begin{figure}[!ht]
@@ -282,8 +282,8 @@ Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat �
 \end{figure}
 A ChakraUI segítségével egyszerűen megvalósítható a sötét és világos téma is az alkalmazáshoz, valamint az e kettő közötti váltás is.
 Ez jelen esetben egy sötétkék árnyalatú designt (\refstruc{fig:darkMode}) eredményezett. 
-A bejelentkezett felhasználó az oldal alján található gomb segítségével válathat témát.
-A válaszott témát az alkalmazás automatiksan elmenti a böngésző helyi tárolójába, így az oldal újboli meglátogatásakor már a korábban kiválasztott téma lesz érvényes.
+A bejelentkezett felhasználó az oldal alján található gomb segítségével válthat témát.
+A választott témát az alkalmazás automatikusan elmenti a böngésző helyi tárolójába, így az oldal újbóli meglátogatásakor már a korábban kiválasztott téma lesz érvényes.
 
 
 %----------------------------------------------------------------------------

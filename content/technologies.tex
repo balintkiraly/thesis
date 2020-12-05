@@ -1,9 +1,10 @@
+% !TeX spellcheck = hu_HU
 %----------------------------------------------------------------------------
 \chapter{Választott technológiák}
 %----------------------------------------------------------------------------
 
-Annek a fejezetnek a keretein belül a felhasznált technológiák kiválasztásának szempontjait szeretném bemutatni. 
-Elöszőr a frontend technológiát választottam ki úgyanis az alkalmazásnak ez a része a bonyolultabb a raktár térképek kezelése miatt.
+Ennek a fejezetnek a keretein belül a felhasznált technológiák kiválasztásának szempontjait szeretném bemutatni. 
+Először a frontend technológiát választottam ki ugyanis az alkalmazásnak ez a része a bonyolultabb a raktár térképek kezelése miatt.
 %----------------------------------------------------------------------------
 
 \section{Frontend}
@@ -11,13 +12,13 @@ Elöszőr a frontend technológiát választottam ki úgyanis az alkalmazásnak 
 A piacon jelenleg 3 meghatározó keretrendszer/könyvtár érhető el, melyek segítségével webes alkalmazások felhasználói felületét készíthetjük el.
 
 Ezek az Angular, a React és a Vue. 
-Bár mind a három keretrendszer célja ugyan az mégis nagy eltéréseket tapasztalhatunk a kódbázisban, felépítésben és a fejlesztúk filozofiájában.
+Bár mind a három keretrendszer célja ugyan az mégis nagy eltéréseket tapasztalhatunk a kódbázisban, felépítésben és a fejlesztők filozófiájában.
 %----------------------------------------------------------------------------
 
 \subsection{Angular}
 
-Az Angular a Google által 2010-ben elinditott és a mai napig általuk karbantartott keretrendszer.
-Filozofiája az, hogy egy általános felhasználásra felkészített alapot ad. 
+Az Angular a Google által 2010-ben elindított és a mai napig általuk karbantartott keretrendszer.
+Filozófiája az, hogy egy általános felhasználásra felkészített alapot ad. 
 Tartalmazza a formok validációját, az állapot kezelést, a routing-ot és a felhasználói input-ok kezelését és ezen kivül még rengeteg más olyan dolgot is, ami hasznos lehet egy webalkalmazás fejlesztéséhez.
 %----------------------------------------------------------------------------
 
@@ -25,7 +26,7 @@ Tartalmazza a formok validációját, az állapot kezelést, a routing-ot és a 
 
 Az Angular-hoz hasonlóan a React mögött is egy nagy cég áll.
 A Facebook 2013 óta fejleszti és tartja karban a keretrendszert.
-Az Angularral szemben a React, filozofiája szerint csak egy könnyű sulyú keretet ad. 
+Az Angular-ral szemben a React, filozófiája szerint csak egy könnyű sulyú keretet ad. 
 Emiatt talán nem is nevezhetjük keretrendszernek, sokkal inkább csak egy könyvtár. 
 Azonban ennek és a fejlesztők által implementált virtuális DOM-nak köszönhetően sokkal jobb sebesség érhető el vele.
 Természetesen az, hogy csak egy keretet ad nem okoz semmilyen hátrányt.
@@ -35,12 +36,12 @@ Ugyanis rengeteg hivatalos csomag érhető el hozzá, melyek megvalósítják az
 \subsection{Vue}
 A három keretrendszer közül a legújabb és legkevesebb fejlesztői erőforrással rendelkező opció.
 A fejlesztését 2014-ben kezdte a Google egyik korábbi mérnöke, aki a mai napig szerves részét képezi a projektnek.
-Filozofiáját tekintve a korábban tárgyalt két rendszer között helyezhető el. Többet tartalmaz, mint a React de korán sem annyit, mint az Angular. Itt is találkozhatunk a virtuális DOM-mal melynek köszönhetően nagyon gyors a működése.
-Az összehasonlított keretrendszerek közül ezzel a legkönnyeb elkezdeni a fejlesztést, egy egyszerű alkalmazás elkészítése nem igényel sok ismeretet a HTML, CSS és JavaScript-en kívül. Természetesen komplex alkalmazásokat is készíthetünk vele, ipari környezetben is remekül megállja a helyét. 
+Filozófiáját tekintve a korábban tárgyalt két rendszer között helyezhető el. Többet tartalmaz, mint a React de korán sem annyit, mint az Angular. Itt is találkozhatunk a virtuális DOM-mal melynek köszönhetően nagyon gyors a működése.
+Az összehasonlított keretrendszerek közül ezzel a legkönnyebb elkezdeni a fejlesztést, egy egyszerű alkalmazás elkészítése nem igényel sok ismeretet a HTML, CSS és JavaScript-en kívül. Természetesen komplex alkalmazásokat is készíthetünk vele, ipari környezetben is remekül megállja a helyét. 
 %----------------------------------------------------------------------------
 
 \subsection{Trendek}
-A döntés meghozása elött végeztem egy kisebb kutatást a napjainkban tapasztalható trendekről. Ehhez a Google Trends és az NPM Trends szolgáltatásait vettem igénybe. Előbbi segitségével a Google keresések számát tudjuk összehasonlítani, míg utóbbival az NPM csomagkezelő oldalról történő letöltések számát.
+A döntés meghozása előtt végeztem egy kisebb kutatást a napjainkban tapasztalható trendekről. Ehhez a Google Trends és az NPM Trends szolgáltatásait vettem igénybe. Előbbi segítségével a Google keresések számát tudjuk összehasonlítani, míg utóbbival az NPM csomagkezelő oldalról történő letöltések számát.
 
 \begin{figure}[!ht]
   \centering
@@ -67,12 +68,12 @@ A fent felsoroltakat alapul véve végül a React-re esett a választásom. A vi
 
 \section{Backend}
 
-A kliens oldali technológia kiválasztása után a szerver oldali keretrendszer kiválasztására keürlt sor.
-Itt sokkal több népszerű és az iparban is használt keretrendszer érhető el. Ilyen például a DotNet, a Spring, a Laravel, a Ruby on Rails, a Django és rengeteg rajtuk kívűl. Ezek összehasonlítása nagyon nehéz, így megpróbáltam egyszerűsíteni a folyamatot. Az elsődleges szempont a kiválasztás során az, hogy a választott frontend technológiával a legegyszerűbben és a legjobban tudjon egyött működni. Természetesen a felsorolt és a nem felsorolt keretrendszerek is működnek React-tel probléma nélkül. Azonban egy kiemelkedik közülük azáltal, hogy a programozási nyelv azonos frontend és backend oldalon is. Ez a NodeJS. Az azonos programozási nyelv felveti a kódmegosztás lehetőségét is a két komponens között. 
+A kliens oldali technológia kiválasztása után a szerveroldali keretrendszer kiválasztására került sor.
+Itt sokkal több népszerű és az iparban is használt keretrendszer érhető el. Ilyen például a DotNet, a Spring, a Laravel, a Ruby on Rails, a Django és rengeteg rajtuk kívül. Ezek összehasonlítása nagyon nehéz, így megpróbáltam egyszerűsíteni a folyamatot. Az elsődleges szempont a kiválasztás során az, hogy a választott frontend technológiával a legegyszerűbben és a legjobban tudjon együtt működni. Természetesen a felsorolt és a nem felsorolt keretrendszerek is működnek React-tel probléma nélkül. Azonban egy kiemelkedik közülük azáltal, hogy a programozási nyelv azonos frontend és backend oldalon is. Ez a NodeJS. Az azonos programozási nyelv felveti a kódmegosztás lehetőségét is a két komponens között. 
 %----------------------------------------------------------------------------
 
 \subsection{NodeJS}
-A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztet V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így lehetővé téve a nyelv felhasználását backend oldalon is. A NodeJS gyors ütemben fejlödött, 2011-ben már a Microsoft is kivette a részét a fejlesztésből napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.
+A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztet V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így lehetővé téve a nyelv felhasználását backend oldalon is. A NodeJS gyors ütemben fejlődött, 2011-ben már a Microsoft is kivette a részét a fejlesztésből napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.
 %----------------------------------------------------------------------------
 
 \section{Kommunikációs megoldások}
@@ -82,7 +83,7 @@ Itt szerencsémre sokkal kevesebb opció közül kellett választanom. Napjainkb
 %----------------------------------------------------------------------------
 
 \subsection{REST API}
-A REST feloldása REpresentational State Transfer, ami magyarra fordítva Reprezentatív Állapot Átvitel. Ez - ahogy a nevéből is következtetni lehet - probálja kifejező módon átvinni az adatot a kliens és a server alkalmazások között.
+A REST feloldása REpresentational State Transfer, ami magyarra fordítva Reprezentatív Állapot Átvitel. Ez - ahogy a nevéből is következtetni lehet - próbálja kifejező módon átvinni az adatot a kliens és a szerver alkalmazások között.
 Ezt úgy valósítja meg, hogy ajánlást tesz a végpontok nevére és típusára rendeltetésük szerint.
 
 \begin{table}[ht]
@@ -99,21 +100,21 @@ Ezt úgy valósítja meg, hogy ajánlást tesz a végpontok nevére és típusá
 		List & Listázás  & GET & /users \\
 		\bottomrule
 	\end{tabular}
-	\caption{Példa egy entitáson végezhető müveletekre a REST API elvei szerint}
+	\caption{Példa egy entitáson végezhető műveletekre a REST API elvei szerint}
 	\label{tab:RESTTable}
 \end{table}
 %----------------------------------------------------------------------------
 
 \subsection{GraphQL}
 
-A graphQL egy lekérdező nyelv, amely a jelenleg elterjedt REST API-s megoldásokat próbálja leváltani/kiegészíteni. A megszokott REST API-val ellentétben GraphQL-nél csak egyetlen egy végpont létezik, valamint csak POST típusú HTTP kéréseket használunk. 
+A GraphQL egy lekérdező nyelv, amely a jelenleg elterjedt REST API-s megoldásokat próbálja leváltani/kiegészíteni. A megszokott REST API-val ellentétben GraphQL-nél csak egyetlen egy végpont létezik, valamint csak POST típusú HTTP kéréseket használunk. 
 
 Az összes kérést erre a végpontra küldjük a megfelelő tartalommal, melyet a POST kérés törzsében (body) helyezünk el.
 
 A bevett REST API-s megoldással szembeni hatalmas előnye, hogy mindig azt kapjuk amit kérünk. A POST kérés törzsében elhelyezett GraphQL operation pontosan meghatározza, hogy milyen entitások milyen tulajdonságait szeretnénk visszakapni. Ez a GraphQL operation nagyon hasonlít a JSON formátumra, azonban egy-két dologban eltér attól. Lehetőségünk van több entitásból is adatot lekérni egyetlen kéréssel, így csökkentve a HTTP üzenetek számát.
 
 A kéréseket minden esetben egy (vagy több) úgynevezett resolver szolgálja ki nekünk. 
-A resolverekből 3 fő típust különböztetünk meg Query, Mutation és Subscription.
+A resolver-ekből 3 fő típust különböztetünk meg Query, Mutation és Subscription.
 
 \subsubsection{Query}
 Adatok lekérésére szolgál
@@ -128,7 +129,7 @@ A standard GraphQL implementáció tartalmazza a websocket kommunikációt is. A
 
 \subsection{Konkluzió}
 A fent leírt szempontokat figyelembe véve a végső választásomat a GraphQL mellett tettem le.
-Tanulmányaim során rengetegszer találkoztam REST API-t használó vagy annak megvalósításák követelő feladattal, így ezen opció választása esetén nem mélyítettem volna el a tudásomat egy kevésbé ismert, azonban mégis remek technológiában.
+Tanulmányaim során rengetegszer találkoztam REST API-t használó vagy annak megvalósítását követelő feladattal, így ezen opció választása esetén nem mélyítettem volna el a tudásomat egy kevésbé ismert, azonban mégis remek technológiában.
 %----------------------------------------------------------------------------
 
 \section{Adatbázis}
@@ -145,14 +146,14 @@ A sequelize-cli segítségével generálhatunk modelleket és migrációkat is.
 %----------------------------------------------------------------------------
 
 \subsection{TypeORM}
-Fejlesztése 5 éve kezdödött, azonban a mai napig sem érte el az 1.0-ás verziót.
+Fejlesztése 5 éve kezdődött, azonban a mai napig sem érte el az 1.0-ás verziót.
 Beépített TypeScript támogatással rendelkezik és a Sequelize-hoz hasonlóan generálhatunk modelleket és migrációkat.
 %----------------------------------------------------------------------------
 
 
 \subsection{Mongoose}
 A Mongoose ORM a mongoDB kezeléséhez több, mint 10 évvel ezelőtt létrehozott csomag. 
-Mivel a mongoDB egy document alapú NoSQL adatbáizs, így még fontosabb az adatok validációja.
+Mivel a mongoDB egy document alapú NoSQL adatbázis, így még fontosabb az adatok validációja.
 A mongoose séma természetesen kezeli ezt, azonban a migrációk meglévő adatok esetén problémás és sok hibalehetőséget rejt.
 A TypeScript támogatás megoldható de szintén körülményes.
 %----------------------------------------------------------------------------
@@ -168,10 +169,10 @@ A Prisma egy beépített Studio nevű grafikus interface-szel érkezik, így tel
 
 \subsection{Konkluzió}
 Habár a trendek (\refstruc{fig:ORMTrends}) alapján a Prisma jócskán el van maradva népszerűségben az összehasonlításban részt vett többi ORM-től mégis erre esett a választásom.
-A korábban felsorolt elönyök és a növekvő népszerűség miatt úgy érzem, hogy a lemaradása egyedül az újdonságának köszönhető.
+A korábban felsorolt előnyök és a növekvő népszerűség miatt úgy érzem, hogy a lemaradása egyedül az újdonságának köszönhető.
 
-Tekintve, hogy fejlesztése még mindig egy korai stádiumban van az adatbázis kezelők listája szükös.
-A fejlesztés kezdetekor csak PostgreSQL, MySQL és SQLite volt támogatott, utobbi kisebb hiányoságokkal.
+Tekintve, hogy fejlesztése még mindig egy korai stádiumban van az adatbázis kezelők listája szűkös.
+A fejlesztés kezdetekor csak PostgreSQL, MySQL és SQLite volt támogatott, utóbbi kisebb hiányosságokkal.
 A dolgozat írása közben bejelentették a MSSQL támogatást is. 
 A választáskor a MySQL és PostgreSQL között kellett döntenem.
 Az adatbázisom bonyolultsága nem lesz túl nagy, így személyes preferencia alapján a PostgreSQL mellett döntöttem.
@@ -188,7 +189,7 @@ Az adatbázisom bonyolultsága nem lesz túl nagy, így személyes preferencia a
 \section{Közös technológiák}
 %----------------------------------------------------------------------------
 Ahogy azt a korábbi fejezetben is említettem a NodeJS-nek hála a backend és a frontend oldali alkalmazás azonos nyelvet használ, a JavaScript-et.
-A JavaScript egyik nagy hátránya az, hogy gyengén típusos nyelv (természetesen ezt bizonyos esetekben tekinthetjük elönynek is). Ennek a megoldására JavaScript helyett TypeScript-et használtam az alkalmazás megvalósításához.
+A JavaScript egyik nagy hátránya az, hogy gyengén típusos nyelv (természetesen ezt bizonyos esetekben tekinthetjük előnynek is). Ennek a megoldására JavaScript helyett TypeScript-et használtam az alkalmazás megvalósításához.
 
 %----------------------------------------------------------------------------
 \subsection{TypeScript}
