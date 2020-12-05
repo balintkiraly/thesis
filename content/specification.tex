@@ -12,27 +12,26 @@ A fejezet kitér az alkalmazással szemben támasztott funkcionális és nem fun
 %----------------------------------------------------------------------------
 \subsection{Regisztráció}
 %----------------------------------------------------------------------------
-Az elkészítendő alkalmazásban legyen lehetőség felhasználót létrehozni egy regisztrációs oldalon.
+Az elkészítendő alkalmazásban legyen lehetőség felhasználót létrehozni egy regisztrációs oldal segítségével.
 A regisztráció során a felhasználó nevét, email címét, jelszavát valamint a jelszavának megerősítését kérjük.
-További fontos követelmény, hogy egy email címhez csak egy felhasználó tartozhat
+További fontos követelmény, hogy egy email címhez csak egy felhasználó tartozhat, így az alkalmazásnak szükséges elvégezni ezt az ellenőrzést is.
 
 %----------------------------------------------------------------------------
 \subsection{Bejelentkezés}
 %----------------------------------------------------------------------------
-A regisztráció során megadott email cím és jelszó segítségével a látogatónak képesnek kell lennie autentikálni magát.
 A rendszer csak autentikált felhasználók számára legyen elérhető.
+A regisztráció során megadott email cím és jelszó segítségével a látogatónak képesnek kell lennie autentikálnia magát, ezáltal hozzáférni az alkalmazásban tárolt eszközökhöz.
 Nem autentikált felhasználóknak csak a bejelentkezés és a regisztráció opciókat kínáljuk fel.
 
 %----------------------------------------------------------------------------
 \subsection{Kijelentkezés}
 %----------------------------------------------------------------------------
-A bejelentkezett felhasználónak biztosítsunk lehetőséget a munkamenet megszüntetésére. 
-Annak folytatásához csak újbóli bejelentkezéssel legyen lehetősége.
+A bejelentkezett felhasználónak biztosítsunk lehetőséget a munkamenet megszüntetésére, annak folytatásához csak újbóli bejelentkezéssel legyen lehetősége.
 
 %----------------------------------------------------------------------------
 \subsection{Raktár épületek kezelése}
 %----------------------------------------------------------------------------
-Az alkalmazással szemben követelmény, hogy képesnek kell lennie több raktár (raktár épület) kezelését.
+Az alkalmazással szemben követelmény, hogy képesnek kell lennie több raktár (raktár épület) kezelésére.
 Ez alatt értjük a raktár létrehozását, és szerkesztését valamint az ezekhez tartozó jogosultságok menedzselését.
 A raktárról tároljuk a méreteit, a nevét és természetesen a szerkesztésre jogosult felhasználók listáját.
 
@@ -50,8 +49,8 @@ Minden eszköz rendelkezzen az alábbi tulajdonságokkal.
 Név, amely az egyszerű azonosítást és a kereshetőséget biztosítja.
 Érték, ami az eszköz raktárba vétele kori értékét tartalmazza.
 Mérete és a tárolón belüli pozíciója. 
-Minden egyes leltárba vett eszközhöz legyen lehetőségünk a kiadások felvételére.
-Minden kiadáshoz egy összeg és egy leírás tartozik, amely a kiadás okának magyarázatára szolgál.
+Minden egyes leltárba vett eszközhöz legyen lehetőségünk a kiadások rögzítésére.
+Minden kiadáshoz egy összeg és egy leírás tartozik, amely a kiadás okának és mértékének magyarázatára szolgál.
 
 %----------------------------------------------------------------------------
 \subsection{Raktár térképes nézettel}
@@ -67,7 +66,7 @@ Ennek a funkciónak a nem implementálása felesleges félreértések elkerülé
 Minden tároló oldalán jelenítsünk meg egy képet a tároló tartalmával.
 A tárolt eszközöket egyszerű téglalappal reprezentáljuk.
 Fontos követelmény, hogy a ezen a nézeten legyen lehetőség az eszközök mozgatására is.
-A mozgatást a felhasználó a mozgatni kívánt elemre kattintva, majd az egér bal billentyűjét lenyomva mozgathatja a tárolón belül.
+A mozgatást a felhasználó a mozgatni kívánt elemre kattintva, majd az egér bal billentyűjét lenyomva tartva mozgathatja a tárolón belül.
 A fent leírt módszer segítségével legyen lehetőség egy ideiglenes tárolóba rakni. 
 Ezt az ideiglenes tárolót jelenítsük meg minden (az adott raktárban lévő) tároló oldalán, az eszközök tárolók közötti mozgatását megvalósítva.
 %----------------------------------------------------------------------------
@@ -78,21 +77,21 @@ Fontos, hogy a keresés segítségével ne csak az adott elemet kapjuk meg hanem
 %----------------------------------------------------------------------------
 
 \subsection{Naplózás}
-Egy alkalmazásnál fontos, hogy képesek legyünk nyomon követni az adatbázisba történt változások okait, különösen igaz ez egy raktár rendszer esetén.
-A rendszer naplózzon minden eszközzel kapcsolatos felhasználói interakciót, amely adatbázis művelethez vezet.
+Egy alkalmazásnál általában fontos követelmény, hogy képesek legyünk nyomon követni az adatbázisba történt változások okait, különösen igaz ez egy raktár rendszer esetén.
+A rendszer naplózzon minden olyan eszközökkel kapcsolatos felhasználói interakciót, amely adatbázis művelethez vezet.
 Tehát az eszköz létrehozását, szerkesztését és törlését. A megtekintések naplózása nem szükséges.
 %----------------------------------------------------------------------------
 
 \section{Nem funkcionális követelmények}
 
-Az alkalmazással szemben természetesen nem csak funkcionális követelmények vannak.
-A nem funkciónális követelmények is legalább annyira fontosak egy alkalmazás tervezésénél és fejlesztésénél, mint a funkcionális követelmények.
+Az alkalmazással szemben természetesen nem csak funkcionális követelmények léteznek.
+A nem funkcionális követelmények figyelembevétele is legalább annyira fontosak egy alkalmazás tervezésénél és fejlesztésénél, mint a funkcionális követelmények.
 %----------------------------------------------------------------------------
 
 \subsection{Webes párhuzamos működés}
 
 Az elkészülő programmal szemben támasztott követelmények közé tartozik az egyidejűleg több felhasználó kiszolgálása webböngésző segítségével.
-Elegendő a böngészők legfrissebb változatának a támogatása.
+Erre legyen lehetőség az összes modern böngészőből, azonban elegendő a böngészők legfrissebb változatának a támogatása.
 %----------------------------------------------------------------------------
 
 \subsection{Üzemeltetéssel szemben támasztott követelmények}
