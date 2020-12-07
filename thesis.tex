@@ -45,6 +45,14 @@
 \include{include/project}
 
 \selectthesislanguage
+
+\makeatletter
+\renewcommand*{\ext@figure}{lot}
+\let\c@figure\c@table
+\let\ftype@figure\ftype@table
+\let\listoftableandfigures\listoftables
+\renewcommand*\listtablename{List of Tables and figures}
+\makeatother
 
 %TODO Titlepage
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -80,7 +88,6 @@
 
 % List of Figures, Tables
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\listoffigures\addcontentsline{toc}{chapter}{\listfigurename}
 \listoftables\addcontentsline{toc}{chapter}{\listtablename}
 
 

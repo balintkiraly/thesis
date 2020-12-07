@@ -4,16 +4,17 @@
 %----------------------------------------------------------------------------
 
 \section{Backend}
-A backend architekturális felépítéséről a korábbi fejezetben volt szó. 
-Most térjünk át az egyes rétegek és egyes funkciók megvalósításának bemutatására.
+A backend architekturális felépítését a korábbi fejezetben már részletesen taglaltam.  
+Ebben a fejezetben az egyes rétegek és egyes funkciók megvalósításának bemutatására fektettem a hangsúlyt.
 %----------------------------------------------------------------------------
 
 \subsection{GraphQL Playground}
 A legtöbb GraphQL server-hez lehetőségünk nyílik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
-Az alkalmazásban én a GraphQL Playground-ot használtam, a konfigurációt úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki ezt a felületet, csak fejlesztői környezet estén.
+Az alkalmazásban én a GraphQL Playground-ot használtam. Ennek a konfigurációt úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki a felületet, csak fejlesztői környezet estén.
 Ezt környezeti változók segítségével oldattam meg.
 
-Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válasz típusával együtt.
+Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válaszok típusával együtt.
+Így a használatával még kényelmesebben készíthetjük el a lekérdezéseinket, melyeknek futtatására is lehetőségünk van.
 
 \begin{figure}[!ht]
   \centering
@@ -24,17 +25,18 @@ Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQ
 %----------------------------------------------------------------------------
 
 \subsection{Modellek és kapcsolatok}
-Az egyszerűség és teljesség kedvéért egy, az alkalmazásban nem létező modellen mutatom be a működést.
-
 A modell definiálásakor megadhatunk bármelyiket a sémában szereplő attribútumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
-A kapcsolatokat is egyszerű mező ként kezelhetjük, beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező.
-Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett.
+A kapcsolatokat is egyszerű mezőként kezelhetjük, beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező illetve, hogy egy vagy több entitást tartalmazhat.
+Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett, így bármilyen származtatott értéket képesek vagyunk felvenni a modelljeinkhez.
 
+Az egyszerűség és teljesség kedvéért a példában a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
+Az \lstinline|id| és a \lstinline|name| egyszerű, az adatbázisból származó attributumok. A \lstinline|user| egy kapcsolatot reprezentál, pontosan egy darab \lstinline|User|-t tartalmaz. 
+A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős-keresztet fűz és úgy adja vissza azt.
 \begin{lstlisting}[style=ES6, caption={Példa model}]
 import { objectType } from '@nexus/schema'
 
-export const TypeOfModel = objectType({
-  name: 'TypeOfModel',
+export const MyModel = objectType({
+  name: 'MyModel',
   definition(t) {
     t.id('id')
     t.string('name')
@@ -54,9 +56,14 @@ export const TypeOfModel = objectType({
 
 \subsection{Resolver felépítése}
 A Mutation-ökhöz és Query-khez tartozó resolverek minden esetben tartalmaznak egy függvényt, amely eldönti, hogy meghívásukkor milyen kódrészlet fusson le.
-Ezen felül tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhez vissza.
-Opcionálisan tartalmazhat egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
-Ezen felül ezeknek a paramétereknek a típusát is meghatározza. 
+Ezen felül a használatukhoz szükségünk van metainformációkra is, ezért tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhet vissza, valamint opcionálisan tartalmaz egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
+A paraméter lista meghatározza a paraméterek típusát is.
+
+Az alábbi példában egy egyszerű létrehozásra láthatunk egy lehetséges implementációt.
+A kódrészletben látható, hogy az argumentum lista helyett használhatunk külön definiált bemenetet is, így növelve a kód olvashatóságát.
+A resolve függvényben elvégezhetjük a szükséges adatbázis műveletet és meghívhatunk külső függvényeket is.
+A csatolt kódban az eszköz létrehozáson felül meghívjunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
+Ezekre a jelzésekre a GraphQL Playground vagy bármilyen kliens segítségével feliratkozhatunk egy egyszerű websocket kapcsolattal.
 \begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver}]
 t.field('createItem', {
   type: 'Item',
@@ -129,22 +136,6 @@ A backend végzi a kép feltöltését a Google Cloud Storage rendszerébe és e
 
 %----------------------------------------------------------------------------
 
-\subsection{Útvonalválasztás}
-NextJS használatával alapértelmezetten fájl alapú útvonalválasztást használhatunk.
-Ez azt jelenti, hogy az oldal URL-jét a fájl neve és a szülő mappák nevei határozzák meg.
-Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
-A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
-Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
-
-\begin{figure}[!ht]
-  \centering
-  \includegraphics[width=55mm, keepaspectratio]{figures/next_routing.png}
-  \caption{Next mappa szerkezeten alapuló routing}
-  \label{fig:NextRouting}
-\end{figure}
-
-%----------------------------------------------------------------------------
-
 \subsection{Kódgenerálás}
 %----------------------------------------------------------------------------
 
@@ -192,6 +183,22 @@ const onSubmit = async (inputData) => {
   }
 }
 \end{lstlisting}
+%----------------------------------------------------------------------------
+
+\subsection{Útvonalválasztás}
+NextJS használatával alapértelmezetten fájl alapú útvonalválasztást használhatunk.
+Ez azt jelenti, hogy az oldal URL-jét a fájl neve és a szülő mappák nevei határozzák meg.
+Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
+A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
+Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=55mm, keepaspectratio]{figures/next_routing.png}
+	\caption{Next mappa szerkezeten alapuló routing}
+	\label{fig:NextRouting}
+\end{figure}
+
 %----------------------------------------------------------------------------
 
 \subsection{Validáció}
@@ -268,7 +275,7 @@ A három oszlop segítségével egyértelműen meghatározható a keresett eszk�
 Lehetőségünk van a keresett eszköz raktárára, tárolójára vagy magára az eszközre navigálnunk.
 
 A tároló nézetén (\refstruc{fig:storage}) a kurzort valamelyik eszköz fölé mozgatva megjelenítjük annak a nevét és ezen felül kiemeljük a listában is, hogy elősegítsük az azonosítást.
-Természetesen a másik irányba is megvalósul a kiemelés, tehát ha a listában választjuk ki, akkor a térképes nézeten kiemelten fogjuk látni az éppen kiválasztott eszközt.
+Természetesen ez a kiemelés másik irányba is megvalósul, tehát ha a listában választjuk ki, akkor a térképes nézeten fogjuk kiemelten látni az éppen kiválasztott eszközt.
 
 \begin{figure}[!ht]
   \centering
@@ -285,7 +292,7 @@ Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat �
 \begin{figure}[!ht]
   \centering
   \includegraphics[width=150mm, keepaspectratio]{figures/dark_mode.png}
-  \caption{Dark mode}
+  \caption{Sötét téma}
   \label{fig:darkMode}
 \end{figure}
 A ChakraUI segítségével egyszerűen megvalósítható a sötét és világos téma is az alkalmazáshoz, valamint az e kettő közötti váltás is.
