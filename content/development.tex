@@ -64,6 +64,7 @@ A kódrészletben látható, hogy az argumentum lista helyett használhatunk kü
 A resolve függvényben elvégezhetjük a szükséges adatbázis műveletet és meghívhatunk külső függvényeket is.
 A csatolt kódban az eszköz létrehozáson felül meghívjunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
 Ezekre a jelzésekre a GraphQL Playground vagy bármilyen kliens segítségével feliratkozhatunk egy egyszerű websocket kapcsolattal.
+
 \begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver}]
 t.field('createItem', {
   type: 'Item',
@@ -192,13 +193,32 @@ Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek k
 A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
 Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
 
-\begin{figure}[!ht]
-	\centering
-	\includegraphics[width=55mm, keepaspectratio]{figures/next_routing.png}
-	\caption{Next mappa szerkezeten alapuló routing}
-	\label{fig:NextRouting}
-\end{figure}
 
+\dirtree{%
+	.1 /.
+	.2 auth
+	.3 login.tsx
+	.3 register.tsx
+	.2 index.tsx
+	.2 warehouse
+	.3 [warehouse_id]
+	.4 edit.tsx
+	.4 edit_roles.tsx
+	.4 index.tsx
+	.4 storage
+	.5 [storage_id]
+	.6 edit.tsx
+	.6 index.tsx
+	.6 item
+	.7 [item_id]
+	.8 cost
+	.9 [cost_id]
+	.10 edit.tsx
+	.8 edit.tsx
+	.8 index.tsx
+	.7 index.tsx
+	.5 new.tsx
+	.3 new.tsx
 %----------------------------------------------------------------------------
 
 \subsection{Validáció}
