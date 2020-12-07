@@ -116,7 +116,13 @@ Sikeres bejelentkezés esetén a backend egy tokent küld a frontend részére, 
   \caption{JWT Bejelentkezés}
   \label{fig:JWT}
 \end{figure}
+%----------------------------------------------------------------------------
 
+\subsection{Képek kezelése}
+Az alkalmazáson belül lehetőségünk van kép feltöltésre a raktárba vett eszközökről.
+A képek tárolására a Google Cloud Storage szolgáltatását használtam. 
+A képeket feltöltés előtt base64-es formátumra kódolom át és elküldöm a backend részére.
+A backend végzi a kép feltöltését a Google Cloud Storage rendszerébe és eltárolja a kép URL címét az adatbázisba a megfelelő eszköz attribútumai között.
 %----------------------------------------------------------------------------
 
 \section{Frontend}
@@ -160,7 +166,7 @@ A hálózati kapcsolat kezelésén felül megkapjuk annak az állapotát is, íg
 Például töltés esetén egy töltő képernyőt megjeleníteni, vagy a hibákat kezelni.
 
 \begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet}]
-const router = useRouter()
+const { register, handleSubmit, errors } = useForm<Inputs>()
 const [login, { loading }] = useLoginMutation()
 const toast = useToast()
 const { setAuthToken } = useAuthToken()
@@ -171,9 +177,11 @@ const onSubmit = async (inputData) => {
       data: {
         login: { token },
       },
-    } = await login({ variables: inputData })
+    } = await login({
+      variables: inputData,
+    })
     setAuthToken(token)
-    router.push('/')
+    window.location.href = '/'
   } catch (error) {
     toast({
       title: error.message,
