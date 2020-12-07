@@ -19,13 +19,13 @@ Bár mind a három keretrendszer célja ugyan az mégis nagy eltéréseket tapas
 
 Az Angular a Google által 2010-ben elindított és a mai napig általuk karbantartott keretrendszer.
 Filozófiája az, hogy egy általános felhasználásra felkészített alapot ad. 
-Tartalmazza a formok validációját, az állapot kezelést, a routing-ot és a felhasználói input-ok kezelését és ezen kivül még rengeteg más olyan dolgot is, ami hasznos lehet egy webalkalmazás fejlesztéséhez.
+Tartalmazza a formok validációját, az állapot kezelést, a routing-ot és a felhasználói input-ok kezelését és ezen kivül még rengeteg más olyan dolgot is, ami hasznos lehet egy webalkalmazás fejlesztéséhez.\cite{Angular}
 %----------------------------------------------------------------------------
 
 \subsection{React}
 
 Az Angular-hoz hasonlóan a React mögött is egy nagy cég áll.
-A Facebook 2013 óta fejleszti és tartja karban a keretrendszert.
+A Facebook 2013 óta fejleszti és tartja karban a keretrendszert.\cite{React}
 Az Angular-ral szemben a React, filozófiája szerint csak egy könnyű sulyú keretet ad. 
 Emiatt talán nem is nevezhetjük keretrendszernek, sokkal inkább csak egy könyvtár. 
 Azonban ennek és a fejlesztők által implementált virtuális DOM-nak köszönhetően sokkal jobb sebesség érhető el vele.
@@ -35,7 +35,7 @@ Ugyanis rengeteg hivatalos csomag érhető el hozzá, melyek megvalósítják az
 
 \subsection{Vue}
 A három keretrendszer közül a legújabb és legkevesebb fejlesztői erőforrással rendelkező opció.
-A fejlesztését 2014-ben kezdte a Google egyik korábbi mérnöke, aki a mai napig szerves részét képezi a projektnek.
+A fejlesztését 2014-ben kezdte a Google egyik korábbi mérnöke, aki a mai napig szerves részét képezi a projektnek.\cite{Vue}
 Filozófiáját tekintve a korábban tárgyalt két rendszer között helyezhető el. Többet tartalmaz, mint a React de korán sem annyit, mint az Angular. Itt is találkozhatunk a virtuális DOM-mal melynek köszönhetően nagyon gyors a működése.
 Az összehasonlított keretrendszerek közül ezzel a legkönnyebb elkezdeni a fejlesztést, egy egyszerű alkalmazás elkészítése nem igényel sok ismeretet a HTML, CSS és JavaScript-en kívül. Természetesen komplex alkalmazásokat is készíthetünk vele, ipari környezetben is remekül megállja a helyét. 
 %----------------------------------------------------------------------------
@@ -73,7 +73,7 @@ Itt sokkal több népszerű és az iparban is használt keretrendszer érhető e
 %----------------------------------------------------------------------------
 
 \subsection{NodeJS}
-A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztet V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így lehetővé téve a nyelv felhasználását backend oldalon is. A NodeJS gyors ütemben fejlődött, 2011-ben már a Microsoft is kivette a részét a fejlesztésből napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.
+A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztet V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így lehetővé téve a nyelv felhasználását backend oldalon is. A NodeJS gyors ütemben fejlődött, 2011-ben már a Microsoft is kivette a részét a fejlesztésből napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.\cite{NodeJS}
 %----------------------------------------------------------------------------
 
 \section{Kommunikációs megoldások}
@@ -84,7 +84,7 @@ Itt szerencsémre sokkal kevesebb opció közül kellett választanom. Napjainkb
 
 \subsection{REST API}
 A REST feloldása REpresentational State Transfer, ami magyarra fordítva Reprezentatív Állapot Átvitel. Ez - ahogy a nevéből is következtetni lehet - próbálja kifejező módon átvinni az adatot a kliens és a szerver alkalmazások között.
-Ezt úgy valósítja meg, hogy ajánlást tesz a végpontok nevére és típusára rendeltetésük szerint.
+Ezt úgy valósítja meg, hogy ajánlást tesz a végpontok nevére és típusára rendeltetésük szerint.\cite{REST}
 
 \begin{table}[ht]
 	\footnotesize
@@ -143,25 +143,25 @@ Az ORM-ek többsége rengeteg dologban hasonlít, így az összehasonlítás sor
 
 \subsection{Sequelize}
 Több, mint 7 éve elérhető ORM rendszer, az ötös verziótól beépített TypeScript támogatással érkezik.
-A sequelize-cli segítségével generálhatunk modelleket és migrációkat is.
+A sequelize-cli segítségével generálhatunk modelleket és migrációkat is.\cite{Sequelize}
 %----------------------------------------------------------------------------
 
 \subsection{TypeORM}
 Fejlesztése 5 éve kezdődött, azonban a mai napig sem érte el az 1.0-ás verziót.
-Beépített TypeScript támogatással rendelkezik és a Sequelize-hoz hasonlóan generálhatunk modelleket és migrációkat.
+Beépített TypeScript támogatással rendelkezik és a Sequelize-hoz hasonlóan generálhatunk modelleket és migrációkat.\cite{TypeORM}
 %----------------------------------------------------------------------------
 
 
 \subsection{Mongoose}
 A Mongoose ORM a mongoDB kezeléséhez több, mint 10 évvel ezelőtt létrehozott csomag. 
-Mivel a mongoDB egy document alapú NoSQL adatbázis, így még fontosabb az adatok validációja.
+Mivel a mongoDB egy document alapú NoSQL adatbázis, így még fontosabb az adatok validációja.\cite{Mongoose}
 A mongoose séma természetesen kezeli ezt, azonban a migrációk meglévő adatok esetén problémás és sok hibalehetőséget rejt.
 A TypeScript támogatás megoldható de szintén körülményes.
 %----------------------------------------------------------------------------
 
 \subsection{Prisma}
 2020 júniusában jelentették be a 2.0-ás verziót, amely az 1.0 alapoktól újraírt változata.
-Teljes körű TypeScript támogatás érkezik és rengeteg extra funkcióval.
+Teljes körű TypeScript támogatás érkezik és rengeteg extra funkcióval.\cite{Prisma}
 A migrációs generálása automatikus, így a séma módosítása után automatikus generálható bármilyen fejlesztői beavatkozás nélkül.
 Természetesen ha adatmigráció is szükséges azt nekünk kell kezelnünk.
 A Prisma egy beépített Studio nevű grafikus interface-szel érkezik, így teljes grafikus hozzáférést kapunk az adatbázishoz bármilyen külső megoldás nélkül.
@@ -199,7 +199,7 @@ A JavaScript egyik nagy hátránya az, hogy gyengén típusos nyelv (természete
 A TypeScript egy - a Microsoft által fejlesztett - nyílt forráskódú nyelv, amely JavaScript-et egészíti ki statikus típus definíciókkal. Mondhatjuk, hogy a JavaScript egy superset-je.
 
 A típusok segítségével hamarabb észrevehetjük a hibákat az alkalmazásunkban. Azonban fontos megjegyezni, hogy a típusok definiálása opcionális, ezért TypeScript mellett érdemes valamilyen linter-t használni, amely figyelmezteti a programozót ha elmulasztja a típusdefiníciók használatát. 
-Minden érvényes JavaScript kód egy érvényes TypeScript kód is, ez részben az elhagyható típusdefiníciók miatt igaz.
+Minden érvényes JavaScript kód egy érvényes TypeScript kód is, ez részben az elhagyható típusdefiníciók miatt igaz.\cite{TypeScript}
 
 Annak érdekében, hogy probléma nélkül futtathassuk a TypeScript kódunkat a böngészőkben minden kódot JavaScript-re transzformálunk. Erre több megoldás is létezik, ilyen például a Babel vagy a TypeScript complier.
 

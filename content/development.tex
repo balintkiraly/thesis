@@ -193,32 +193,36 @@ Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek k
 A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
 Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
 
-
-\dirtree{%
-	.1 /.
-	.2 auth
-	.3 login.tsx
-	.3 register.tsx
-	.2 index.tsx
-	.2 warehouse
-	.3 [warehouse_id]
-	.4 edit.tsx
-	.4 edit_roles.tsx
-	.4 index.tsx
-	.4 storage
-	.5 [storage_id]
-	.6 edit.tsx
-	.6 index.tsx
-	.6 item
-	.7 [item_id]
-	.8 cost
-	.9 [cost_id]
-	.10 edit.tsx
-	.8 edit.tsx
-	.8 index.tsx
-	.7 index.tsx
-	.5 new.tsx
-	.3 new.tsx
+\begin{figure}
+	\dirtree{%
+      .1 /pages.
+      .2 auth.
+      .3 login.tsx.
+      .3 register.tsx.
+      .2 index.tsx.
+      .2 warehouse.
+      .3 [warehouse\_id].
+      .4 edit.tsx.
+      .4 editroles.tsx.
+      .4 index.tsx.
+      .4 storage.
+      .5 [storage\_id].
+      .6 edit.tsx.
+      .6 index.tsx.
+      .6 item.
+      .7 [item\_id].
+      .8 cost.
+      .9 [cost\_id].
+      .10 edit.tsx.
+      .8 edit.tsx.
+      .8 index.tsx.
+      .7 index.tsx.
+      .5 new.tsx.
+      .3 new.tsx.
+    }
+  \caption{Next mappa szerkezet}
+  \label{fig:next}
+\end{figure}
 %----------------------------------------------------------------------------
 
 \subsection{Validáció}
