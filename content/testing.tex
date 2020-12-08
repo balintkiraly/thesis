@@ -11,16 +11,17 @@ Ennek a kockázatát megfelelő tesztlefedettséggel minimálisra csökkenthetj�
 
 \section{Frontend tesztelés}
 
-A frontend teszteléséhez úgy nevezett end-to-end teszteket készítettem.
-Az end-to-end tesztek (röviden E2E) esetén a teszt a felhasználó viselkedését szimulálja.
-Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki és figyeli a renderelt képet a tesztnek megfelelő egyezést keresve.
+A frontend teszteléséhez úgy nevezett end–to–end teszteket készítettem.
+Az E2E\footnote{end–to–end} tesztek esetén a teszt a felhasználó viselkedését szimulálja.
+Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki majd figyeli a renderelt képet a tesztnek megfelelő egyezést keresve.
 
-Ezt a Jest és a Playwright package-ek segítségével valósítottam meg.
+Ezt a Jest\footnote{Jest NPM oldala \url{https://www.npmjs.com/package/jest}} és a Playwright\footnote{Playwright NPM oldala \url{https://www.npmjs.com/package/playwright}} package–ek segítségével valósítottam meg.
 A tesztelés során szükség van bizonyos adatbázis adatokra, ezeket környezeti változókba helyeztem.
-Jelenleg a tesztek csak lokális környezetben futnak, de a későbbi fejlesztések során is biztosítva lesz, hogy adatbázisból adatok ne kerüljenek ki.
+Jelenleg a tesztek csak lokális környezetben futnak, de a későbbi fejlesztések során így biztosítva lesz, hogy adatbázisból adatok ne kerüljenek harmadik fél kezébe.
 
+Az alábbi példában (\refstruc{lst:e2e}) a bejelentkezés E2E tesztje látható. A bejelentkezési oldalra navigálunk, ahol kitöltjük az email és jelszó mezőket majd elküldjük a formot. A teszt rövid várakozás után ellenőrzi, hogy megtörtént–e az átirányítás és a renderelt oldal tartalmazza–e a Warehouse szöveget egy h2 HTML tag–ben.
 
-\begin{lstlisting}[style=ES6, caption={Bejelentkezés E2E teszt}]
+\begin{lstlisting}[style=ES6, caption={Bejelentkezés E2E teszt},label={lst:e2e}]
 it('should allow users to sign in', async () => {
   await page.goto('http://localhost:3000/auth/login')
   await page.waitForTimeout(1000)
@@ -37,7 +38,7 @@ it('should allow users to sign in', async () => {
 %----------------------------------------------------------------------------
 
 \section{Backend tesztelés}
-A Prisma fejlesztő csapata csupán pár hónappal ezelőtt jelentette be a 2.0-ás verziót.
+A Prisma fejlesztő csapata csupán pár hónappal ezelőtt jelentette be a 2.0–ás verziót.
 A folyamatos fejlesztés ellenére is még hiányos az eszközkészlete.
 Ennek köszönhetően teszteléshez sem kínál semmilyen megoldást.
 
@@ -46,7 +47,7 @@ Azonban a Prisma jelenlegi verziója nem támogatja az enumerációt SQLite adat
 Emiatt itt is egy PostgreSQL adatbázissal kellett dolgozom.
 A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véletlenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals eredményt váltana ki a tesztekből.
 
-A tesztek során a GraphQL végpontot hívtam meg különböző query-kel és mutation-ökkel.
+A tesztek során a GraphQL végpontot hívtam meg különböző query–kel és mutation–ökkel, majd a választ vizsgálva megbizonyosodtam a helyes működésről.
 
 
 \begin{lstlisting}[style=ES6, caption=Regisztráció első teszt eset]    

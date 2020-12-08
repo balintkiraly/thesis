@@ -4,21 +4,21 @@
 %----------------------------------------------------------------------------
 
 A fejlesztés során rengeteg olyan problémát kellett megoldanom, melyekkel egyébként nem találkoztam volna.
-Elmélyültem olyan technológiákban, melyek napjainkban "divatosak" és piaci környezetben is megállják a helyüket.
+Elmélyültem olyan technológiákban, melyek napjainkban divatosak és piaci környezetben is megállják a helyüket.
 Ezeket a későbbiekben alkalmazhatom, mint tanulmányaimban, mint munkám során.
 %----------------------------------------------------------------------------
 
 \section{Tovább fejlesztési lehetőségek}
 A félév során temérdek új fejlesztési lehetőség jutott eszembe, melyeket megvalósítva egy még jobb és még inkább a piaci igényeknek megfelelő alkalmazást kaphatunk.
-A szakdolgozat keretein belül igyekeztem az elengedhetetlen funkciókat a lehető legjobban megvalósítani és inkább a fejlesztői eszköz tár felépítését tartottam fontosnak, mint a rengeteg funkció belezsúfolását egy alkalmazásba.
+A szakdolgozat keretein belül igyekeztem az elengedhetetlen funkciókat a lehető legjobban megvalósítani és inkább a fejlesztői eszköztár felépítését tartottam fontosnak, mint a rengeteg funkció belezsúfolását egy alkalmazásba.
 Ennek köszönhetően remélhetőleg egy hosszú távon is fejleszthető és fenntartható alkalmazás született.
 A félév végeztével folytatnám a munkát, hogy a lehető legtöbb piaci igényt legyen képes kiszolgálni az alkalmazásom.
 %----------------------------------------------------------------------------
 
 \subsection{Keresés}
 A jelenlegi keresés egy nagyon egyszerű string összehasonlításon alapul, már egyetlen karakter elgépelése esetén sem talál egyezést.
-Ennek a problémának a megoldására több lehetőség is kínálkozik, ilyen például az Elastic Search vagy a PostgreSQL-be épített full-text search.
-Ezeknek az alapvető működési elve, hogy nem magában az adatbázisban keres hanem létrehoz egy index-szelt szótárat és ezt hasonlítja a keresési kifejezéshez.
+Ennek a problémának a megoldására több lehetőség is kínálkozik, ilyen például az Elastic Search vagy a PostgreSQL–be épített full–text search.
+Ezeknek az alapvető működési elve, hogy nem magában az adatbázisban keres hanem létrehoz egy index–szelt szótárat és ezt hasonlítja a keresési kifejezéshez.
 Ennek köszönhetően nagy adatbázisok esetén is gyors keresés érhető el.
 %----------------------------------------------------------------------------
 
@@ -26,13 +26,13 @@ Ennek köszönhetően nagy adatbázisok esetén is gyors keresés érhető el.
 Már a félév elején felvetődött a raktárban tárolt eszközök egyedi tulajdonságainak kezelése, mint ötlet.
 A tervezés során kiderült, hogy ez jóval több időt venne igénybe, mint azt az elején gondoltam, így a megvalósítását kihagytam a szakdolgozatból.
 
-A koncepció az volt, hogy kategóriákat hozhattunk volna létre minden raktáron belül.
-A kategóriákhoz egy név megadása után felvehetőek lettek volna a tulajdonságok nevei és típusai.
+A koncepció lényege, hogy kategóriákat hozhattunk létre minden raktáron belül.
+A kategóriákhoz egy név megadása után felvehetőek a tulajdonságok nevei és típusai.
 Ezután az eszköz felvételekor kiválasztjuk, hogy milyen kategóriába, kategóriákba tartozik. 
-Így a kategóriák révén már tudjuk azt, hogy milyen egyedi tulajdonságai lehetnek.
+Így a kategóriák révén már tudjuk azt, hogy milyen egyedi tulajdonságai lehetnek. Természetesen ehhez szükséges előredefiniált attribútum típusok létrehozására is.
 %----------------------------------------------------------------------------
 
-\subsection{3D-s térkép nézet}
+\subsection{3D–s térkép nézet}
 Az alkalmazás már a jelenleg verziójában is tárolja a 3 dimenziós adatokat, azonban ez a megjelenítésben figyelmen kívül lett hagyva.
 A későbbi fejlesztések során a jelenlegi térkép helyett egy 3 dimenziós nézet segítésével lehetőség nyílna az eszközök a valósághoz még közelebb eső állapotának tárolására egy 3 dimenziós nézet segítségével. Ennek megvalósítása azonban nagyon sok problémát vet fel, így az implementációja rengeteg időt emészthet fel.
 

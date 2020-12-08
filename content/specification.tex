@@ -32,7 +32,7 @@ A bejelentkezett felhasználónak biztosítsunk lehetőséget a munkamenet megsz
 \subsection{Raktár épületek kezelése}
 %----------------------------------------------------------------------------
 Az alkalmazással szemben követelmény, hogy képesnek kell lennie több raktár (raktár épület) kezelésére.
-Ez alatt értjük a raktár létrehozását, és szerkesztését valamint az ezekhez tartozó jogosultságok menedzselését.
+Ez alatt értjük a raktár létrehozását, szerkesztését valamint az ezekhez tartozó jogosultságok menedzselését.
 A raktárról tároljuk a méreteit, a nevét és természetesen a szerkesztésre jogosult felhasználók listáját.
 
 %----------------------------------------------------------------------------
@@ -48,7 +48,7 @@ A hierarchia harmadik szintjén helyezkednek el az eszközök.
 Minden eszköz rendelkezzen az alábbi tulajdonságokkal.
 Név, amely az egyszerű azonosítást és a kereshetőséget biztosítja.
 Érték, ami az eszköz raktárba vétele kori értékét tartalmazza.
-Mérete és a tárolón belüli pozíciója. 
+Mérete és a tárolón belüli pozíciója.
 Minden egyes leltárba vett eszközhöz legyen lehetőségünk a kiadások rögzítésére.
 Minden kiadáshoz egy összeg és egy leírás tartozik, amely a kiadás okának és mértékének magyarázatára szolgál.
 
@@ -79,12 +79,12 @@ Fontos, hogy a keresés segítségével ne csak az adott elemet kapjuk meg hanem
 \subsection{Naplózás}
 Egy alkalmazásnál általában fontos követelmény, hogy képesek legyünk nyomon követni az adatbázisba történt változások okait, különösen igaz ez egy raktár rendszer esetén.
 A rendszer naplózzon minden olyan eszközökkel kapcsolatos felhasználói interakciót, amely adatbázis művelethez vezet.
-Tehát az eszköz létrehozását, szerkesztését és törlését. A megtekintések naplózása nem szükséges.
+Tehát az eszköz létrehozását, szerkesztését és törlését, a megtekintések naplózása nem szükséges.
 %----------------------------------------------------------------------------
 
 \section{Nem funkcionális követelmények}
 
-Az alkalmazással szemben természetesen nem csak funkcionális követelmények léteznek.
+Az alkalmazással szemben természetesen nem csak funkcionális követelményeket támasztunk.
 A nem funkcionális követelmények figyelembevétele is legalább annyira fontosak egy alkalmazás tervezésénél és fejlesztésénél, mint a funkcionális követelmények.
 %----------------------------------------------------------------------------
 
@@ -95,6 +95,6 @@ Erre legyen lehetőség az összes modern böngészőből, azonban elegendő a b
 %----------------------------------------------------------------------------
 
 \subsection{Üzemeltetéssel szemben támasztott követelmények}
-Továbbá fontos követelmény, hogy az alkalmazás üzemeltetéséhez ne legyen szükség speciális hardware-re vagy speciális operációs rendszerre. 
+Továbbá fontos követelmény, hogy az alkalmazás üzemeltetéséhez ne legyen szükség speciális hardware–re vagy speciális operációs rendszerre. 
 Elindításához elegendőnek kell lennie egy átlagos személyi számítógép hardware készlete. 
-A fejlesztést és üzemeltetést tegyük lehetővé Linux, MacOS vagy Windows operációs rendszereken is. 
+A fejlesztést és üzemeltetést tegyük lehetővé Linux, MacOS és Windows operációs rendszereken is. 

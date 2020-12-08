@@ -9,11 +9,11 @@ Ebben a fejezetben az egyes rétegek és egyes funkciók megvalósításának be
 %----------------------------------------------------------------------------
 
 \subsection{GraphQL Playground}
-A legtöbb GraphQL server-hez lehetőségünk nyílik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
-Az alkalmazásban én a GraphQL Playground-ot használtam. Ennek a konfigurációt úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki a felületet, csak fejlesztői környezet estén.
+A legtöbb GraphQL server–hez lehetőségünk nyílik valamilyen interaktív GraphQL szerkesztő felület kiszolgálásra is.
+Az alkalmazásban én a GraphQL Playground–ot használtam. Ennek a konfigurációját úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki a felületet, csak fejlesztői környezet estén.
 Ezt környezeti változók segítségével oldattam meg.
 
-Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query-k és Mutation-ök listáját a lehetséges paraméterekkel és a válaszok típusával együtt.
+Azon felül, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query–k és Mutation–ök listáját a lehetséges paraméterekkel és a válaszok típusával együtt.
 Így a használatával még kényelmesebben készíthetjük el a lekérdezéseinket, melyeknek futtatására is lehetőségünk van.
 
 \begin{figure}[!ht]
@@ -26,13 +26,13 @@ Azon felül, hogy interaktívan, kódkiegészítéssel szerkeszthetjük a GraphQ
 
 \subsection{Modellek és kapcsolatok}
 A modell definiálásakor megadhatunk bármelyiket a sémában szereplő attribútumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
-A kapcsolatokat is egyszerű mezőként kezelhetjük, beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező illetve, hogy egy vagy több entitást tartalmazhat.
+A kapcsolatokat is egyszerű mezőként kezelhetjük. Beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező illetve, hogy egy vagy több entitást tartalmazhat.
 Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett, így bármilyen származtatott értéket képesek vagyunk felvenni a modelljeinkhez.
 
-Az egyszerűség és teljesség kedvéért a példában a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
-Az \lstinline|id| és a \lstinline|name| egyszerű, az adatbázisból származó attributumok. A \lstinline|user| egy kapcsolatot reprezentál, pontosan egy darab \lstinline|User|-t tartalmaz. 
-A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős-keresztet fűz és úgy adja vissza azt.
-\begin{lstlisting}[style=ES6, caption={Példa model}]
+Az egyszerűség és teljesség kedvéért a példában (\refstruc{lst:model}) a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
+Az \lstinline|id| és a \lstinline|name| egyszerű, az adatbázisból származó attributumok. A \lstinline|user| egy kapcsolatot reprezentál, pontosan egy darab \lstinline|User|–t tartalmaz. 
+A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős keresztet fűz és úgy adja vissza azt.
+\begin{lstlisting}[style=ES6, caption={Példa model},label={lst:model}]
 import { objectType } from '@nexus/schema'
 
 export const MyModel = objectType({
@@ -55,17 +55,18 @@ export const MyModel = objectType({
 %----------------------------------------------------------------------------
 
 \subsection{Resolver felépítése}
-A Mutation-ökhöz és Query-khez tartozó resolverek minden esetben tartalmaznak egy függvényt, amely eldönti, hogy meghívásukkor milyen kódrészlet fusson le.
+A Mutation–ökhöz és Query–khez tartozó resolverek minden esetben tartalmaznak egy függvényt, amely eldönti, hogy meghívásukkor milyen kódrészlet fusson le.
 Ezen felül a használatukhoz szükségünk van metainformációkra is, ezért tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhet vissza, valamint opcionálisan tartalmaz egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
 A paraméter lista meghatározza a paraméterek típusát is.
 
-Az alábbi példában egy egyszerű létrehozásra láthatunk egy lehetséges implementációt.
+Az alábbi példában (\refstruc{lst:resolver}) egy egyszerű létrehozásra láthatunk egy lehetséges implementációt.
 A kódrészletben látható, hogy az argumentum lista helyett használhatunk külön definiált bemenetet is, így növelve a kód olvashatóságát.
 A resolve függvényben elvégezhetjük a szükséges adatbázis műveletet és meghívhatunk külső függvényeket is.
-A csatolt kódban az eszköz létrehozáson felül meghívjunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
-Ezekre a jelzésekre a GraphQL Playground vagy bármilyen kliens segítségével feliratkozhatunk egy egyszerű websocket kapcsolattal.
+A csatolt kódban az eszköz létrehozáson felül meghívunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
+Ezekre a jelzésekre a GraphQL Playground – vagy bármilyen kliens segítségével – feliratkozhatunk GraphQL Subscription–ök használatával, mely egy egyszerű websocket kapcsolatot nyit a backend és a frontend között. A Subscription–nek hála ezeket a többi kommunikációhoz hasonlóan kezelhetjük így egy egységesebb kódbázist kaphatunk.
 
-\begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver}]
+
+\begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver},label={lst:resolver}]
 t.field('createItem', {
   type: 'Item',
   args: { data: CreateItemInput.asArg({ required: true }) },
@@ -91,12 +92,12 @@ t.field('createItem', {
 %----------------------------------------------------------------------------
 
 \subsection{Autentikáció és autorizáció}
-Az autentikáció és autorizáció ellenőrzésére a GraphQL Shield-et használtam. 
-Ennek segítségével egy egyszerű JavaScript object-tel megadható, hogy egyes Query-k és Mutation-ök esetén, milyen validáció fusson le.
+Az autentikáció és autorizáció ellenőrzésére a GraphQL Shield–et használtam. 
+Ennek segítségével egy egyszerű JavaScript object–tel megadható, hogy egyes Query–k és Mutation–ök esetén, milyen validáció fusson le.
 Lehetőséget biztosít egy úgynevezett fallback rule beállítására is, amely minden külön nem specifikált kérésnél fut le.
-Ezzel valósítottam meg a bejelentkezett felhasználó validálását.
+Ezzel valósítottam meg a bejelentkezett felhasználó validálását (\refstruc{lst:shield}).
 
-\begin{lstlisting}[style=ES6, caption={GraphQL Shield}]
+\begin{lstlisting}[style=ES6, caption={GraphQL Shield},label={lst:shield}]
 export const shield = GQLShield(
    {
      Query: {
@@ -116,7 +117,7 @@ export const shield = GQLShield(
 \end{lstlisting}
 
 Az authentikációt JSON Web Token segítségével végzem. 
-Sikeres bejelentkezés esetén a backend egy tokent küld a frontend részére, melyet a böngészőbe elmentve a későbbiekben minden kéréshez csatolni tudunk.
+Sikeres bejelentkezés esetén a backend egy tokent küld a frontend részére, melyet a böngészőbe elmentve a későbbiekben minden kéréshez csatolni tudunk. Az ábrán (\refstruc{fig:JWT}) a token létrehozásának folyamatát figyelhetjük meg.
 
 \begin{figure}[!ht]
   \centering
@@ -129,22 +130,62 @@ Sikeres bejelentkezés esetén a backend egy tokent küld a frontend részére, 
 \subsection{Képek kezelése}
 Az alkalmazáson belül lehetőségünk van kép feltöltésre a raktárba vett eszközökről.
 A képek tárolására a Google Cloud Storage szolgáltatását használtam. 
-A képeket feltöltés előtt base64-es formátumra kódolom át és elküldöm a backend részére.
+A képeket feltöltés előtt base64–es formátumra kódolom át és elküldöm a backend részére.
 A backend végzi a kép feltöltését a Google Cloud Storage rendszerébe és eltárolja a kép URL címét az adatbázisba a megfelelő eszköz attribútumai között.
 %----------------------------------------------------------------------------
 
 \section{Frontend}
-
+A frontend magas szintű architektúrájának bemutatása után ebben a fejezetben az egyes rétegek működésének részletes bemutatására kerül sor. Bizonyos komponensek bemutatása nem célja a szekciónak ugyanis azok belső működése az alkalmazás és a fejlesztő elől rejtve vannak, így nem releváns a fejlesztés bemutatásának szempontjából. Ilyen például az Apollo Client, ami a kapcsolat felépítésért és az Apollo Storage ami a gyorsírótárazásért felel.
 %----------------------------------------------------------------------------
+
+\subsection{Útvonalválasztás}
+NextJS használatával alapértelmezetten fájl alapú útvonalválasztást használhatunk.
+Ez azt jelenti, hogy az oldal URL–jét a fájl neve és a szülő mappák nevei határozzák meg.
+Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
+A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
+Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
+
+\begin{figure}
+	\dirtree{%
+		.1 /pages.
+		.2 auth.
+		.3 login.tsx.
+		.3 register.tsx.
+		.2 index.tsx.
+		.2 warehouse.
+		.3 [warehouse\_id].
+		.4 edit.tsx.
+		.4 editroles.tsx.
+		.4 index.tsx.
+		.4 storage.
+		.5 [storage\_id].
+		.6 edit.tsx.
+		.6 index.tsx.
+		.6 item.
+		.7 [item\_id].
+		.8 cost.
+		.9 [cost\_id].
+		.10 edit.tsx.
+		.8 edit.tsx.
+		.8 index.tsx.
+		.7 index.tsx.
+		.5 new.tsx.
+		.3 new.tsx.
+	}
+	\caption{Routing mappa szerkezete}
+	\label{fig:next}
+\end{figure}
+%----------------------------------------------------------------------------
+
 
 \subsection{Kódgenerálás}
 %----------------------------------------------------------------------------
 
-Ahogy az korábban már többször is szóba került az Apollo-nak hála remek kódgenerálási lehetőségeink vannak.
+Ahogy az korábban már többször is szóba került az Apollo–nak hála remek kódgenerálási lehetőségeink vannak.
 Alább egy példa keretein belül szeretném bemutatni ennek használatát
 
-A GraphQL Mutation-t paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja lehetséges paramétereket. 
-\begin{lstlisting}[style=ES6, caption={GraphQL Shield}]
+A GraphQL Mutation–t (\refstruc{lst:login}) paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja lehetséges paramétereket. 
+\begin{lstlisting}[style=ES6, caption={Login Mutation},label={lst:login}]
 mutation Login($email: String!, $password: String!) {
   login(data: { email: $email, password: $password }) {
     token
@@ -152,12 +193,12 @@ mutation Login($email: String!, $password: String!) {
 }
 \end{lstlisting}
 
-A generálást futtatva azonnal használhatjuk az elkészült hook-okat (jelen esetben a useLoginMutation hook-ot).
+A generálást futtatva azonnal használhatjuk az elkészült hook–okat, a csatolt példában (\refstruc{lst:loginForm}) ez a useLoginMutation hook–ot.
 
 A hálózati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
 Például töltés esetén egy töltő képernyőt megjeleníteni, vagy a hibákat kezelni.
 
-\begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet}]
+\begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet},label={lst:loginForm}]
 const { register, handleSubmit, errors } = useForm<Inputs>()
 const [login, { loading }] = useLoginMutation()
 const toast = useToast()
@@ -186,52 +227,13 @@ const onSubmit = async (inputData) => {
 \end{lstlisting}
 %----------------------------------------------------------------------------
 
-\subsection{Útvonalválasztás}
-NextJS használatával alapértelmezetten fájl alapú útvonalválasztást használhatunk.
-Ez azt jelenti, hogy az oldal URL-jét a fájl neve és a szülő mappák nevei határozzák meg.
-Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
-A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
-Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
-
-\begin{figure}
-	\dirtree{%
-      .1 /pages.
-      .2 auth.
-      .3 login.tsx.
-      .3 register.tsx.
-      .2 index.tsx.
-      .2 warehouse.
-      .3 [warehouse\_id].
-      .4 edit.tsx.
-      .4 editroles.tsx.
-      .4 index.tsx.
-      .4 storage.
-      .5 [storage\_id].
-      .6 edit.tsx.
-      .6 index.tsx.
-      .6 item.
-      .7 [item\_id].
-      .8 cost.
-      .9 [cost\_id].
-      .10 edit.tsx.
-      .8 edit.tsx.
-      .8 index.tsx.
-      .7 index.tsx.
-      .5 new.tsx.
-      .3 new.tsx.
-    }
-  \caption{Next mappa szerkezet}
-  \label{fig:next}
-\end{figure}
-%----------------------------------------------------------------------------
-
 \subsection{Validáció}
 A felhasználótól érkező adatok minden esetben validálva vannak, ehhez a yup csomagot használtam.
 A yup segítségével definiálhatunk egy sémát, amelyre a bemenetnek illeszkedni kell. 
 Hiba esetén egy hibaüzenetet is generál az egyes mezőkhöz, így visszacsatolást adhatunk a felhasználónak, hogy melyik adat hibás és miért.
-Amennyiben szeretnék eltérni az alapértelmezett beállításoktól, a hibaüzeneteket szövegezését a séma definiálással együtt adhatjuk meg.
+Amennyiben szeretnék eltérni az alapértelmezett beállításoktól, a hibaüzeneteket szövegezését a séma definiálással együtt adhatjuk meg (\refstruc{lst:yup}).
 
-\begin{lstlisting}[style=ES6, caption={Esköz validációs séma}]
+\begin{lstlisting}[style=ES6, caption={Esköz validációs séma},label={lst:yup}]
 import * as yup from 'yup'
 
 export const itemSchema = yup.object().shape({
@@ -247,9 +249,9 @@ export const itemSchema = yup.object().shape({
 })
 \end{lstlisting}
 
-A formok elküldését egy React hook-kal valósítottam meg.
-A hook visszaadja a hibákat és lehetőséget biztosít a form újra-beállítására is.
-Minden beviteli mezőt regisztrálni kell a form hook-ba, így biztosítva azok elérését.
+A formok elküldését egy React hook–kal valósítottam meg.
+A hook visszaadja a hibákat és lehetőséget biztosít a form újra–beállítására is.
+Minden beviteli mezőt regisztrálni kell a form hook–ba, így biztosítva azok elérését.
 
 \begin{lstlisting}[style=ES6, caption={Regisztrációnál használt form hook}]
 const { register, handleSubmit, reset, errors } = useForm<Inputs>({
@@ -259,7 +261,7 @@ const { register, handleSubmit, reset, errors } = useForm<Inputs>({
 
 A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetben az adott beviteli mező neve.
 
-\begin{lstlisting}[style=ES6, caption={Form}]
+\begin{lstlisting}[style=ES6, caption={Form hibák megjelenítésével}]
 <form onSubmit={handleSubmit(onSubmit)}>
   <FormControl mb={4} isInvalid={!!errors.name}>
     <FormLabel htmlFor="name">Name</FormLabel>
@@ -273,8 +275,8 @@ A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetbe
 %----------------------------------------------------------------------------
 
 \subsection{Felhasználói felület}
-A felhasználói felületet a ChakraUI könyvtár segítségével készítettem el.
-A Chakra hála az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
+A felhasználói felületet a Chakra UI\footnote{A Chakra UI hivatalos weboldala \url{https://chakra-ui.com/}} könyvtár segítségével készítettem el. Ez kifejezetten React–hez készült és rengeteg konfigurálható beállítást tartalmaz, így teljes mértékben személyre szabható, így teljesen egyedi design–t kaphatunk. Lehetőségünk van globális téma definiálására, de akár komponensenként is változtathatjuk a kinézetet a rengeteg paraméternek köszönhetően.
+A Chakra használatának hála az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
 
 \begin{figure}[!ht]
   \centering
@@ -299,7 +301,7 @@ A három oszlop segítségével egyértelműen meghatározható a keresett eszk�
 Lehetőségünk van a keresett eszköz raktárára, tárolójára vagy magára az eszközre navigálnunk.
 
 A tároló nézetén (\refstruc{fig:storage}) a kurzort valamelyik eszköz fölé mozgatva megjelenítjük annak a nevét és ezen felül kiemeljük a listában is, hogy elősegítsük az azonosítást.
-Természetesen ez a kiemelés másik irányba is megvalósul, tehát ha a listában választjuk ki, akkor a térképes nézeten fogjuk kiemelten látni az éppen kiválasztott eszközt.
+Természetesen ez a kiemelés a másik irányba is megvalósul, tehát ha a listában választjuk ki, akkor a térképes nézeten fogjuk kiemelten látni az éppen kiválasztott eszközt.
 
 \begin{figure}[!ht]
   \centering
@@ -308,10 +310,10 @@ Természetesen ez a kiemelés másik irányba is megvalósul, tehát ha a listá
   \label{fig:storage}
 \end{figure}
 
-A raktár nézetén belül a tárolóhoz hasonlóan kiemeléssel jelezzük az éppen kijelölt tárolót.
-A tárolókról extra információként megjelenítjük az adott tároló becsült kihasználását.
-A becslés a tároló méretéből és a benne tárolt eszközök méretéből számolt értékét.
-Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat általában nem lehet 100\%-osan kitölteni.
+A raktár nézetén belül a tárolóhoz hasonlóan kiemeléssel jelezzük a kiválasztott tárolót.
+A tárolókról extra információként megjelenítjük az adott tároló becsült kihasználtságát.
+A becslés a tároló méretéből és a benne tárolt eszközök méreteiből számolt értékét.
+Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat általában nem lehet 100\%–osan kitölteni.
 
 \begin{figure}[!ht]
   \centering
@@ -319,7 +321,7 @@ Természetesen pontosan kihasználtságot nem tudunk adni, mivel a tárolókat �
   \caption{Sötét téma}
   \label{fig:darkMode}
 \end{figure}
-A ChakraUI segítségével egyszerűen megvalósítható a sötét és világos téma is az alkalmazáshoz, valamint az e kettő közötti váltás is.
+A Chakra UI segítségével egyszerűen megvalósítható a sötét és világos téma is az alkalmazáshoz, valamint az e kettő közötti váltás is.
 Ez jelen esetben egy sötétkék árnyalatú designt (\refstruc{fig:darkMode}) eredményezett. 
 A bejelentkezett felhasználó az oldal alján található gomb segítségével válthat témát.
 A választott témát az alkalmazás automatikusan elmenti a böngésző helyi tárolójába, így az oldal újbóli meglátogatásakor már a korábban kiválasztott téma lesz érvényes.

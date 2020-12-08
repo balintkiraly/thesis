@@ -33,6 +33,7 @@
 \input{include/thesis-hu}
 
 \input{include/preamble}
+\renewcommand{\lstlistingname}{kódrészlet}
 
 %--------------------------------------------------------------------------------------
 % Table of contents and the main text
@@ -42,16 +43,22 @@
 \pagenumbering{gobble}
 \nocite{*}
 
-\include{include/project}
 
 \selectthesislanguage
-
-\makeatletter
-\renewcommand*{\ext@figure}{lot}
-\let\c@figure\c@table
-\let\ftype@figure\ftype@table
-\let\listoftableandfigures\listoftables
-\renewcommand*\listtablename{List of Tables and figures}
+
+
+\makeatletter
+
+\renewcommand*{\ext@figure}{lot}
+
+\let\c@figure\c@table
+
+\let\ftype@figure\ftype@table
+
+\let\listoftableandfigures\listoftables
+
+\renewcommand*\listtablename{List of Tables and figures}
+
 \makeatother
 
 %TODO Titlepage
@@ -96,10 +103,6 @@
 \addcontentsline{toc}{chapter}{\bibname}
 \bibliography{bib/mybib}
 
-
-% Appendix
-%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-\include{content/appendices}
 
 %\label{page:last}
 \end{document}
