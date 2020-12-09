@@ -13,7 +13,7 @@ Ennek a kockázatát megfelelő tesztlefedettséggel minimálisra csökkenthetj�
 
 A frontend teszteléséhez úgy nevezett end–to–end teszteket készítettem.
 Az E2E\footnote{end–to–end} tesztek esetén a teszt a felhasználó viselkedését szimulálja.
-Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki majd figyeli a renderelt képet a tesztnek megfelelő egyezést keresve.
+Egy szimulált böngészőben végzi el a tesztet és tényleges kattintás eseményt vált ki, majd figyeli a renderelt képet a tesztnek megfelelő egyezést keresve.
 
 Ezt a Jest\footnote{Jest NPM oldala \url{https://www.npmjs.com/package/jest}} és a Playwright\footnote{Playwright NPM oldala \url{https://www.npmjs.com/package/playwright}} package–ek segítségével valósítottam meg.
 A tesztelés során szükség van bizonyos adatbázis adatokra, ezeket környezeti változókba helyeztem.
@@ -42,7 +42,7 @@ A Prisma fejlesztő csapata csupán pár hónappal ezelőtt jelentette be a 2.0�
 A folyamatos fejlesztés ellenére is még hiányos az eszközkészlete.
 Ennek köszönhetően teszteléshez sem kínál semmilyen megoldást.
 
-A tesztelési környezet kialakításház egy SQLite adatbázist szerettem volna használni, hogy ne a fejlesztés közben használt adatbázist használjam és ne teljen túl sok időbe a tesztek futtatása.
+A tesztelési környezet kialakításház egy SQLite adatbázist szerettem volna használni, hogy ne a fejlesztés közben használt adatbázist használjam, és ne teljen túl sok időbe a tesztek futtatása.
 Azonban a Prisma jelenlegi verziója nem támogatja az enumerációt SQLite adatbázis esetén.
 Emiatt itt is egy PostgreSQL adatbázissal kellett dolgozom.
 A tesztelés előtt egy scripttel automatikusan létrehozom a szükséges adatbázist, majd a tesztek végeztével törlöm azt, így biztosítva, hogy véletlenül se maradjon semmilyen adat az adatbázisba, ami esetleg fals eredményt váltana ki a tesztekből.

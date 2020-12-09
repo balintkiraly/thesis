@@ -12,7 +12,7 @@ Először a frontend technológiát választottam ki ugyanis az alkalmazásnak e
 A piacon jelenleg 3 meghatározó keretrendszer/könyvtár érhető el, melyek segítségével webes alkalmazások felhasználói felületét készíthetjük el.
 
 Ezek az Angular, a React és a Vue. 
-Bár mind a három keretrendszer célja ugyanaz mégis nagy eltéréseket tapasztalhatunk a kódbázisban, felépítésben és a fejlesztők filozófiájában.
+Bár mind a három keretrendszer célja ugyanaz, mégis nagy eltéréseket tapasztalhatunk a kódbázisban, felépítésben és a fejlesztők filozófiájában.
 %----------------------------------------------------------------------------
 
 \subsection{Angular}
@@ -30,14 +30,14 @@ Az Angular–ral szemben a React, filozófiája szerint csak egy könnyű súly�
 Emiatt talán nem is nevezhetjük keretrendszernek, sokkal inkább csak egy könyvtár. 
 Azonban ennek és a fejlesztők által implementált virtuális DOM–nak köszönhetően sokkal jobb sebesség érhető el vele.
 Természetesen az, hogy csak egy keretet ad nem okoz semmilyen hátrányt.
-Ugyanis rengeteg hivatalos csomag érhető el hozzá, melyek megvalósítják az Angular által is nyujtott megoldásokat.
+Ugyanis rengeteg hivatalos csomag érhető el hozzá, melyek megvalósítják az Angular által is nyújtott megoldásokat.
 %----------------------------------------------------------------------------
 
 \subsection{Vue}
 A három keretrendszer közül a legújabb és legkevesebb fejlesztői erőforrással rendelkező opció.
-A fejlesztését 2014–ben kezdte a Google egyik korábbi mérnöke, aki a mai napig szerves részét képezi a projektnek\cite{Vue}.
-Filozófiáját tekintve a korábban tárgyalt két rendszer között helyezhető el. Többet tartalmaz, mint a React de korán sem annyit, mint az Angular. Itt is találkozhatunk a virtuális DOM–mal melynek köszönhetően nagyon gyors a működése.
-Az összehasonlított keretrendszerek közül ezzel a legkönnyebb elkezdeni a fejlesztést, egy egyszerű alkalmazás elkészítése nem igényel sok ismeretet a HTML, CSS és JavaScripten kívül. Természetesen komplex alkalmazásokat is készíthetünk vele és ipari környezetben is remekül megállja a helyét, azonban ilyen esetben komolyabb tervezést igényel ugyanis teljesen szabad–kezet kapunk az alkalmazás felépítését illetően.
+A fejlesztését 2014–ben kezdte a Google egyik korábbi mérnöke, aki a mai napig meghatározó szerepet tölt be a projektben\cite{Vue}.
+Filozófiáját tekintve a korábban tárgyalt két rendszer között helyezhető el. Többet tartalmaz, mint a React, de korán sem annyit, mint az Angular. Itt is találkozhatunk a virtuális DOM–mal, melynek köszönhetően nagyon gyors a működése.
+Az összehasonlított keretrendszerek közül ezzel a legkönnyebb elkezdeni a fejlesztést, egy egyszerű alkalmazás elkészítése nem igényel sok ismeretet a HTML, CSS és JavaScripten kívül. Természetesen komplex alkalmazásokat is készíthetünk vele és ipari környezetben is remekül megállja a helyét, azonban ilyen esetben komolyabb tervezésre van szükség, ugyanis teljesen szabad–kezet kapunk az alkalmazás felépítését illetően.
 %----------------------------------------------------------------------------
 
 \subsection{Trendek}
@@ -69,11 +69,11 @@ A fent felsoroltakat alapul véve végül a React–re esett a választásom. A 
 \section{Backend}
 
 A kliens oldali technológia kiválasztása után a szerveroldali keretrendszer kiválasztására került sor.
-Itt sokkal több népszerű és az iparban is használt rendszer érhető el. Ilyen például a DotNet, a Spring, a Laravel, a Ruby on Rails, a Django és még sok más. A mennyiségük miatt ezeknek összehasonlítása nagyon nehézkes, így megpróbáltam egyszerűsíteni a folyamatot. Az elsődleges szempont a kiválasztás során az, hogy a választott frontend technológiával a legegyszerűbben és a legjobban tudjon együtt működni. Természetesen a felsorolt és a nem felsorolt keretrendszerek is működnek React–tel probléma nélkül. Azonban egy kiemelkedik közülük azáltal, hogy a programozási nyelve azonos a React–ével. A NodeJS segítésgével frontend és backend oldalon is használhatunk JavaScriptet. Az azonos programozási nyelv felveti a kódmegosztás lehetőségét is a két komponens között. 
+Itt sokkal több népszerű és az iparban is használt rendszer érhető el. Ilyen például a DotNet, a Spring, a Laravel, a Ruby on Rails, a Django és még sok más. A mennyiségük miatt ezeknek összehasonlítása nagyon nehéz, így megpróbáltam egyszerűsíteni a folyamatot. Az elsődleges szempont a kiválasztás során az, hogy a választott frontend technológiával a legegyszerűbben és a legjobban tudjon együtt működni. Természetesen a felsorolt és a nem felsorolt keretrendszerek is működnek React–tel probléma nélkül. Azonban egy kiemelkedik közülük azáltal, hogy a programozási nyelve azonos a React–ével. A NodeJS segítésgével frontend és backend oldalon is használhatunk JavaScriptet. Az azonos programozási nyelv felveti a kódmegosztás lehetőségét is a két komponens között. 
 %----------------------------------------------------------------------------
 
 \subsection{NodeJS}
-A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztet V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így lehetővé téve a nyelv felhasználását backend oldalon is. A NodeJS gyors ütemben fejlődött, 2011–ben már a Microsoft is kivette a részét a fejlesztésből napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.\cite{NodeJS}
+A NodeJS története több, mint 11 éve indult Ryan Dahl keze által. A projekt a Google által fejlesztett V8 JavaScript motor segítségével teszi lehetővé JavaScript futtatását web böngészőn kívül, így alkalmassá tették a nyelvet backend oldali felhasználásra is. A NodeJS gyors ütemben fejlődött, 2011–ben már a Microsoft is kivette a részét a fejlesztésből, napjainkra pedig az egyik legnépszerűbb technológia webes környezetben.\cite{NodeJS}
 %----------------------------------------------------------------------------
 
 \section{Kommunikációs megoldások}
@@ -121,7 +121,7 @@ A REST API elveihez hasonlóan a GraphQL esetén is kapunk ajánlásokat arra, h
 Adatok lekérésére szolgál.
   
 \subsubsection{Mutation}
-Ahogy a nevéből is következtethetünk rá főként adatok módosítására és létrehozására szolgál.
+Ahogy a nevéből is következtethetünk rá, főként adatok módosítására és létrehozására szolgál.
   
 
 \subsubsection{Subscription}
@@ -135,7 +135,7 @@ Tanulmányaim során rengetegszer találkoztam REST API–t használó vagy anna
 
 \section{Adatbázis}
 Az alkalmazás nem rendelkezik olyan követelménnyel, amely komoly adatbázis műveletet igényel.
-Ezért a választás szempont elsődlegesen az volt, hogy a már kiválasztott technológiákkal együtt a lehető legkényelmesebb és legjobb fejlesztési élményt nyújtsa. Ennek következménye az volt, hogy adatbázisok helyett ORM\footnote{Object–Relational mapping.} rendszerek összehasonlítását végeztem el.
+Ezért a választási szempont elsődlegesen az volt, hogy a már kiválasztott technológiákkal együtt a lehető legkényelmesebb és legjobb fejlesztési élményt nyújtsa. Ennek következménye az volt, hogy adatbázisok helyett ORM\footnote{Object–Relational mapping.} rendszerek összehasonlítását végeztem el.
 Az ORM egy absztrakciós réteget helyez az adatbázis és az alkalmazás közé, így elfedve a lekérdező nyelvet, ez nagyobb biztonságot és gyorsabb fejlesztést eredményez.
 
 Az ORM–ek többsége rengeteg dologban hasonlít, így az összehasonlítás során leginkább a különbségekre fókuszáltam.
@@ -163,20 +163,20 @@ A TypeScript támogatás megoldható de szintén körülményes.
 2020 júniusában jelentették be a 2.0–ás verziót, amely az 1.0 alapoktól újraírt változata.
 Teljes körű TypeScript támogatás érkezik és rengeteg extra funkcióval.
 A migrációs generálása automatikus, így a séma módosítása után automatikusan generálható bármilyen fejlesztői beavatkozás nélkül.
-Természetesen ha adatmigráció is szükséges azt nekünk kell kezelnünk.
+Természetesen, ha adatmigráció is szükséges, azt nekünk kell kezelnünk.
 A Prisma egy beépített Studio nevű grafikus interface–szel érkezik, így teljes grafikus hozzáférést kapunk az adatbázishoz bármilyen külső megoldás nélkül.
 
 %----------------------------------------------------------------------------
 
 \subsection{Konkluzió}
-Habár a trendek (\refstruc{fig:ORMTrends}) alapján a Prisma jócskán el van maradva népszerűségben az összehasonlításban részt vett többi ORM–től mégis erre esett a választásom.
+Habár a trendek (\refstruc{fig:ORMTrends}) alapján a Prisma jócskán el van maradva népszerűségben az összehasonlításban részt vett többi ORM–től, mégis erre esett a választásom.
 A korábban felsorolt előnyök és a növekvő népszerűség miatt úgy érzem, hogy a lemaradása egyedül az újdonságának köszönhető.
 
 Tekintve, hogy fejlesztése még mindig egy korai stádiumban van az adatbázis kezelők listája szűkös.
 A fejlesztés kezdetekor csak PostgreSQL, MySQL és SQLite volt támogatott, utóbbi kisebb hiányosságokkal.
 A dolgozat írása közben bejelentették a MSSQL támogatást is. 
 A választáskor a MySQL és PostgreSQL között kellett döntenem.
-Az adatbázisom bonyolultsága nem lesz túl nagy, így személyes preferencia alapján a PostgreSQL mellett döntöttem.
+Az adatbázis felépítése nem bonyolult, így személyes preferencia alapján a PostgreSQL mellett döntöttem.
 %----------------------------------------------------------------------------
 
 \begin{figure}[!ht]
@@ -189,7 +189,7 @@ Az adatbázisom bonyolultsága nem lesz túl nagy, így személyes preferencia a
 %----------------------------------------------------------------------------
 \section{Közös technológiák}
 %----------------------------------------------------------------------------
-Ahogy azt a korábbi fejezetben is említettem a NodeJS–nek hála a backend és a frontend oldali alkalmazás azonos nyelvet használ, a JavaScriptet.
+Ahogy azt a korábbi fejezetben is említettem a NodeJS–nek köszönhetően a backend és a frontend oldali alkalmazás azonos nyelvet használ, a JavaScriptet.
 A JavaScript egyik nagy hátránya az, hogy gyengén típusos nyelv (természetesen ezt bizonyos esetekben tekinthetjük előnynek is). Ennek a megoldására JavaScript helyett TypeScriptet használtam az alkalmazás megvalósításához.
 
 %----------------------------------------------------------------------------
@@ -199,7 +199,7 @@ A JavaScript egyik nagy hátránya az, hogy gyengén típusos nyelv (természete
 A TypeScript egy – a Microsoft által fejlesztett – nyílt forráskódú nyelv, amely JavaScriptet egészíti ki statikus típus definíciókkal. Mondhatjuk, hogy a JavaScript egy superset–je.
 
 A típusok segítségével hamarabb észrevehetjük a hibákat az alkalmazásunkban. Azonban fontos megjegyezni, hogy a típusok definiálása opcionális, ezért TypeScript mellett érdemes valamilyen linter–t használni, amely figyelmezteti a programozót ha elmulasztja a típusdefiníciók használatát. 
-Minden érvényes JavaScript kód egy érvényes TypeScript kód is, ez részben az elhagyható típusdefiníciók miatt igaz.
+Minden érvényes JavaScript kód egyben egy érvényes TypeScript kód is, ez részben az elhagyható típusdefiníciók miatt igaz.
 
 Annak érdekében, hogy probléma nélkül futtathassuk a TypeScript kódunkat a böngészőkben minden kódot JavaScript–re transzformálunk. Erre több megoldás is létezik, ilyen például a Babel vagy a TypeScript complier.\cite{TypeScript}
 
