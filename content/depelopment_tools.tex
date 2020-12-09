@@ -7,11 +7,11 @@ A fejlesztés során igyekeztem minél több olyan eszközt használni, ami elő
 
 \section{Continuous Integration}
 A Continuous Integration napjainkban már elengedhetetlen része a fejlesztési folyamatoknak.
-Rengetek megoldás létezik, azonban én a GitHub Action mellett tettem le a voksomat.
+Rengetek megoldás létezik, azonban én a GitHub Action mellett döntöttem.
 Ennek oka, hogy a GitHub–ot használtam a verziókezelt kód tárolására, így kézenfekvő volt ennek a megoldásnak az alkalmazása.
 
 Az alkalmazást 2 külön repository–ban kezeltem, hogy jobban elkülönüljön a frontend és a backend kódja.
-Ennek a hátránya az volt, hogy bár ugyan azon nyelvet használja a két repository mégis kétszer kellett implementálnom a GitHub Action–öket.
+Ennek a hátránya az volt, hogy bár ugyanazon nyelvet használja a két repository mégis kétszer kellett implementálnom a GitHub Action–öket.
 
 Az action–ök létrehozását egyszerű szöveges formában tehetjük meg. 
 A \lstinline|.github/workflows| mappába létrehozott github \lstinline|.yml| és \lstinline|.yaml| kiterjesztésű fájlok automatikusan kiértékelődnek a GitHub Action által.
@@ -33,7 +33,7 @@ A linter egy viszonylag gyors lefutású és kevés erőforrást igénylő actio
 %----------------------------------------------------------------------------
 \subsubsection{Sercurity check}
 A statikus kódellenőrzés egy másik lehetséges felhasználási módja a biztonsági rések keresése, ezt egy a GitHub által ajánlott megoldással valósítottam meg, a CodeQL–lel.
-Mivel ez egy több erőforrást igénylő folyamat ezért a futtatása nem történik meg minden commitnál, csak ha az a főágba történik vagy ha Pull Request–et nyit valaki, melynek a cél ága a főág.
+Mivel ez egy több erőforrást igénylő folyamat, ezért a futtatása nem történik meg minden commitnál, csak ha az a főágba történik, vagy ha Pull Request–et nyit valaki, melynek a cél ága a főág.
 
 A képen (\refstruc{fig:securityCheck}) egy a GitHub által észlelt lehetséges sebezhetőség detektálása látható.
 A kód analízis során a rendszer észlelte, hogy shell command futtatása történik úgy, hogy annak tartalma környezeti változóból származik.
@@ -49,9 +49,9 @@ A figyelmeztetés jelen esetben egy fals riasztás volt, mert a sérülékeny k�
 
 \section{Git hook}
 Git használata esetén rengeteg eseményhez definiálhatunk úgynevezett hook–okat.
-Ezek segítségével bizonyos események után, előtt vagy közben futtathatunk tetszőleges kódot.
+Ezek segítségével bizonyos események után, előtt, vagy közben futtathatunk tetszőleges kódot.
 Az alkalmazásomban egy linter–t állítottam be a pre–commit hookra.
-Ennek értelmében új commit elkészítése előtt minden alkalommal lefut a linter így biztosítva a kódminőségét.
+Ennek értelmében, új commit elkészítése előtt minden alkalommal lefut a linter így biztosítva a kódminőségét.
 
 \begin{lstlisting}[style=ES6, caption=Pre–commit hook beállításai]    
 "husky": {

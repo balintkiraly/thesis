@@ -13,7 +13,7 @@ A legtöbb GraphQL server–hez lehetőségünk nyílik valamilyen interaktív G
 Az alkalmazásban én a GraphQL Playground–ot használtam. Ennek a konfigurációját úgy valósítottam meg, hogy éles környezetbe ne szolgálja ki a felületet, csak fejlesztői környezet estén.
 Ezt környezeti változók segítségével oldattam meg.
 
-Azon felül, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk egy dokumentációt is, amely tartalmazza az elérhető Query–k és Mutation–ök listáját a lehetséges paraméterekkel és a válaszok típusával együtt.
+Azon felül, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat, kapunk egy dokumentációt is, amely tartalmazza az elérhető Query–k és Mutation–ök listáját a lehetséges paraméterekkel és a válaszok típusával együtt.
 Így a használatával még kényelmesebben készíthetjük el a lekérdezéseinket, melyeknek futtatására is lehetőségünk van.
 
 \begin{figure}[!ht]
@@ -25,13 +25,13 @@ Azon felül, kódkiegészítéssel szerkeszthetjük a GraphQL kódunkat kapunk e
 %----------------------------------------------------------------------------
 
 \subsection{Modellek és kapcsolatok}
-A modell definiálásakor megadhatunk bármelyiket a sémában szereplő attribútumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
-A kapcsolatokat is egyszerű mezőként kezelhetjük. Beállítható továbbá az is, hogy a kapcsolat opcionális vagy kötelező illetve, hogy egy vagy több entitást tartalmazhat.
+A modell definiálásakor megadhatjuk bármelyiket a sémában szereplő attribútumok közül, azonban fontos figyelni arra, hogy a típusok megegyezzenek a sémában és a modellben.
+A kapcsolatokat is egyszerű mezőként kezelhetjük. Beállítható továbbá az is, hogy a kapcsolat opcionális, vagy kötelező illetve, hogy egy, vagy több entitást tartalmazhat.
 Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett, így bármilyen származtatott értéket képesek vagyunk felvenni a modelljeinkhez.
 
 Az egyszerűség és teljesség kedvéért a példában (\refstruc{lst:model}) a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
 Az \lstinline|id| és a \lstinline|name| egyszerű, az adatbázisból származó attributumok. A \lstinline|user| egy kapcsolatot reprezentál, pontosan egy darab \lstinline|User|–t tartalmaz. 
-A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős keresztet fűz és úgy adja vissza azt.
+A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős keresztet fűz, és úgy adja vissza azt.
 \begin{lstlisting}[style=ES6, caption={Példa model},label={lst:model}]
 import { objectType } from '@nexus/schema'
 
@@ -63,7 +63,7 @@ Az alábbi példában (\refstruc{lst:resolver}) egy egyszerű létrehozásra lá
 A kódrészletben látható, hogy az argumentum lista helyett használhatunk külön definiált bemenetet is, így növelve a kód olvashatóságát.
 A resolve függvényben elvégezhetjük a szükséges adatbázis műveletet és meghívhatunk külső függvényeket is.
 A csatolt kódban az eszköz létrehozáson felül meghívunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
-Ezekre a jelzésekre a GraphQL Playground – vagy bármilyen kliens segítségével – feliratkozhatunk GraphQL Subscription–ök használatával, mely egy egyszerű websocket kapcsolatot nyit a backend és a frontend között. A Subscription–nek hála ezeket a többi kommunikációhoz hasonlóan kezelhetjük így egy egységesebb kódbázist kaphatunk.
+Ezekre a jelzésekre a GraphQL Playground – vagy bármilyen kliens segítségével – feliratkozhatunk GraphQL Subscription–ök használatával, mely egy egyszerű websocket kapcsolatot nyit a backend és a frontend között. A Subscription–nek köszönhetően ezeket a többi kommunikációhoz hasonlóan kezelhetjük, így egy egységesebb kódbázist kaphatunk.
 
 
 \begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver},label={lst:resolver}]
@@ -135,7 +135,7 @@ A backend végzi a kép feltöltését a Google Cloud Storage rendszerébe és e
 %----------------------------------------------------------------------------
 
 \section{Frontend}
-A frontend magas szintű architektúrájának bemutatása után ebben a fejezetben az egyes rétegek működésének részletes bemutatására kerül sor. Bizonyos komponensek bemutatása nem célja a szekciónak ugyanis azok belső működése az alkalmazás és a fejlesztő elől rejtve vannak, így nem releváns a fejlesztés bemutatásának szempontjából. Ilyen például az Apollo Client, ami a kapcsolat felépítésért és az Apollo Storage ami a gyorsírótárazásért felel.
+A frontend magas szintű architektúrájának bemutatása után ebben a fejezetben az egyes rétegek működésének részletes bemutatására kerül sor. Bizonyos komponensek bemutatása nem célja a szekciónak, ugyanis azok belső működése az alkalmazás és a fejlesztő elől rejtve vannak, így nem releváns a fejlesztés bemutatásának szempontjából. Ilyen például az Apollo Client, ami a kapcsolat felépítésért és az Apollo Storage, ami a gyorsírótárazásért felel.
 %----------------------------------------------------------------------------
 
 \subsection{Útvonalválasztás}
@@ -143,7 +143,7 @@ NextJS használatával alapértelmezetten fájl alapú útvonalválasztást hasz
 Ez azt jelenti, hogy az oldal URL–jét a fájl neve és a szülő mappák nevei határozzák meg.
 Lehetőségünk van paraméterek használatára is, ezt szögletes zárójelek közé írt névvel jelezhetjük.
 A paramétert ezzel a névvel fogjuk elérni a kódbázison belül is.
-Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
+Ilyen paraméterrel jelzett nevet adhatunk bármelyik szinten lévő fájlnak, de akár mappának is.
 
 \begin{figure}
 	\dirtree{%
@@ -181,10 +181,10 @@ Ilyen paraméterrel jelzett adhatunk bármelyik szinten lévő fájlnak, de aká
 \subsection{Kódgenerálás}
 %----------------------------------------------------------------------------
 
-Ahogy az korábban már többször is szóba került az Apollo–nak hála remek kódgenerálási lehetőségeink vannak.
+Ahogy az korábban már többször is szóba került az Apollo–nak köszönhetően remek kódgenerálási lehetőségeink vannak.
 Alább egy példa keretein belül szeretném bemutatni ennek használatát
 
-A GraphQL Mutation–t (\refstruc{lst:login}) paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja lehetséges paramétereket. 
+A GraphQL Mutation–t (\refstruc{lst:login}) paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja a lehetséges paramétereket. 
 \begin{lstlisting}[style=ES6, caption={Login Mutation},label={lst:login}]
 mutation Login($email: String!, $password: String!) {
   login(data: { email: $email, password: $password }) {
@@ -193,7 +193,7 @@ mutation Login($email: String!, $password: String!) {
 }
 \end{lstlisting}
 
-A generálást futtatva azonnal használhatjuk az elkészült hook–okat, a csatolt példában (\refstruc{lst:loginForm}) ez a useLoginMutation hook–ot.
+A generálást futtatva azonnal használhatjuk az elkészült hook–okat, a csatolt példában (\refstruc{lst:loginForm}) ez a hook a useLoginMutation.
 
 A hálózati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
 Például töltés esetén egy töltő képernyőt megjeleníteni, vagy a hibákat kezelni.
@@ -275,8 +275,8 @@ A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetbe
 %----------------------------------------------------------------------------
 
 \subsection{Felhasználói felület}
-A felhasználói felületet a Chakra UI\footnote{A Chakra UI hivatalos weboldala \url{https://chakra-ui.com/}} könyvtár segítségével készítettem el. Ez kifejezetten React–hez készült és rengeteg konfigurálható beállítást tartalmaz, így teljes mértékben személyre szabható, így teljesen egyedi design–t kaphatunk. Lehetőségünk van globális téma definiálására, de akár komponensenként is változtathatjuk a kinézetet a rengeteg paraméternek köszönhetően.
-A Chakra használatának hála az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
+A felhasználói felületet a Chakra UI\footnote{A Chakra UI hivatalos weboldala \url{https://chakra-ui.com/}} könyvtár segítségével készítettem el. Ez kifejezetten React–hez készült és rengeteg konfigurálható beállítást tartalmaz, így teljes mértékben személyre szabható, egyedi design–t kaphatunk. Lehetőségünk van globális téma definiálására, de akár komponensenként is változtathatjuk a kinézetet a rengeteg paraméternek köszönhetően.
+A Chakra használatának köszönhetően az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
 
 \begin{figure}[!ht]
   \centering
