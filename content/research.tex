@@ -1,0 +1,37 @@
+% !TeX spellcheck = hu_HU
+%----------------------------------------------------------------------------
+\chapter{Piac feltérképezés}
+%----------------------------------------------------------------------------
+
+A hagyományos papír alapú raktárkezelést napjainkra már javarészt felváltották a digitális megoldások.
+Zárt- es nyílt forráskódú alkalmazásból is nagy mennyiség érhető el a felhasználók számára.
+Mivel szoftveremmel az utóbbi kategóriát gyarapítom, ezért a kutatást is ezek összehasonlításával végeztem el.
+%----------------------------------------------------------------------------
+
+\section{Openboxes}
+Talán mind közül a leginkább elterjedt rendszer az Openboxes. Az üzleti logikát Groovy, a kliens oldali logikát pedig JavaScript segítségével valósították meg fejlesztői. \cite{OpenboxesGithub}
+Funkciókat tekintve egy sokrétű alkalmazásról beszélhetünk. Használatával rengeteg analízis és jelentés készíthető, lehetőségünk van több nyelv használatára, naplózza az összes tranzakciót és egyedi attribútumok kezelését is biztosítja.\cite{Openboxes}
+%----------------------------------------------------------------------------
+
+\section{Oodo}
+Rengeteg funkciót kínál, támogatja több raktár kezelését és lehetőségünk van vonalkódok olvasására is. Alkalmazásával nem csak egy raktárkezelő felületet kapunk, megvalósítható minden olyan funkció, amely egy cég életének szervezés részét képezheti. Tartalmaz marketing és sales megoldásokat, projekt menedzsment oldalt, CRM felületet, de akár webshop és foglalások kezelése is megvalósítható használatával. \cite{Oodo}
+Felülete kiemelkedik az összehasonlításban vizsgált szofverek közül, azonban bizonyos modulok havidíjas konstrukcióban érhetőek csak el.\cite{OdooPricing}
+Backend oldalon egy Python rendszer biztosítja a működést, a frontend pedig JavaScript segítéségvel lett megvalósítva.\cite{OdooGithub}
+%----------------------------------------------------------------------------
+
+\section{MyWMS}
+Fejlesztése egészen 2001-ig nyúlik vissza. Célja egy olyan moduláris keretrendszer létrehozása, amely elősegíti a raktár kezelő rendszerek fejlesztését.\cite{MyWMS}
+Az alkalmazás egy natív Java program, melynek telepítése lehetséges UNIX és Windows alapú rendszerekre is.\cite{MyWMSGithub}
+Ezáltal nem felel meg napjaink trendjeinek, melyben minden menedzsment szoftvert webes alapokra helyezünk, hogy az bárhol, bármikor, bármilyen eszközről elérhető legyen.
+%----------------------------------------------------------------------------
+
+\section{PartKeepr}
+A PartKeepr a raktározást egy hierarchikus rendszerben valósítja meg. A legalsó szinten az eszközök találhatóak, a szülők minden esetben egy kategóriát jelölnek. Használatával a raktár és készlet kezelésén felül, jelentések és statisztikák készítésére is lehetőségünk nyílik. Felülete nagyon elavult hatást kelt, azonban ennek ellenére egy könnyen használható rendszert kapunk.\cite{PartKeepr}
+Az üzleti logikáért egy PHP backend, a kliens oldali megoldásokért pedig egy JavaScript alkalmazás felel.\cite{PartKeeprGithub}
+
+
+%----------------------------------------------------------------------------
+
+\section{Összegzés}
+Általánosságban elmondható, hogy a piacon elérhető raktárkezelő rendszerek felülete elavult, azonban technológiájukat es funkcióikat tekintve nagyon is sokrétűek. A legtöbb elérhető alkalmazás olyan, nagy raktárak menedzselésére szolgál, melyekben egy eszközből többet is tartanak készleten. A kutatások során nem találtam olyan raktárkezelő szoftvert, amely az egyedi eszközök raktározását célozza meg. Természetesen bármely raktárkezelővel megoldható ez, de felületük elsődleges optimalizálási szempontja nem ez volt.
+%----------------------------------------------------------------------------

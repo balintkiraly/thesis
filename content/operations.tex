@@ -15,7 +15,7 @@ Második lépésben a TypeScript kódot fordítjuk JavaScript kódra, a harmadik
 A három lépéses konténer készítés oka a docker cachelésének maximális kihasználása.
 Ez különösen nagy segítség lehet, ha ugyanazt a verziót több környezetbe is szeretnénk élesíteni.
 
-\begin{lstlisting}[language=TeX, caption=Frontend Dockerfile]
+\begin{lstlisting}[language=TeX]
 # 1 - Install dependecies
 FROM node:12-alpine AS dependencies
 
@@ -49,7 +49,7 @@ A hozzá tartozó docker-compose file tartalmazza a backend és az adatbázis el
 A Prisma Studio és az alkalmazás konkurensen futnak egy containeren belül.
 Fontos megjegyezni, hogy a Studiot csak feltétlenül szükséges esetben használjuk, érdemes tiltani a hozzáférést ugyanis nem tartalmaz semmilyen beépített jelszavas védelmet.
 
-\begin{lstlisting}[language=TeX, caption=Backend docker compose]
+\begin{lstlisting}[language=TeX]
 version: '3'
 services:
   server:

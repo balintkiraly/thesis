@@ -29,10 +29,10 @@ A modell definiálásakor megadhatjuk bármelyiket a sémában szereplő attrib�
 A kapcsolatokat is egyszerű mezőként kezelhetjük. Beállítható továbbá az is, hogy a kapcsolat opcionális, vagy kötelező illetve, hogy egy, vagy több entitást tartalmazhat.
 Lehetőségünk van egyedi attribútumok létrehozására is, amely az adott modell bármely attribútumából származtatható, de tetszőleges kód futtatása is megengedett, így bármilyen származtatott értéket képesek vagyunk felvenni a modelljeinkhez.
 
-Az egyszerűség és teljesség kedvéért a példában (\refstruc{lst:model}) a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
+Az egyszerűség és teljesség kedvéért a példában a \lstinline|MyModel| felépítésén mutatom be egy modell definiálását.
 Az \lstinline|id| és a \lstinline|name| egyszerű, az adatbázisból származó attributumok. A \lstinline|user| egy kapcsolatot reprezentál, pontosan egy darab \lstinline|User|–t tartalmaz. 
 A \lstinline|custom| mező egy egyedi attributum, ami az \lstinline|id| elejére egy kettős keresztet fűz, és úgy adja vissza azt.
-\begin{lstlisting}[style=ES6, caption={Példa model},label={lst:model}]
+\begin{lstlisting}[style=ES6]
 import { objectType } from '@nexus/schema'
 
 export const MyModel = objectType({
@@ -59,14 +59,14 @@ A Mutation–ökhöz és Query–khez tartozó resolverek minden esetben tartalm
 Ezen felül a használatukhoz szükségünk van metainformációkra is, ezért tartalmaz egy visszatérési típust, hogy pontosan tudjuk milyen típussal térhet vissza, valamint opcionálisan tartalmaz egy argumentum listát, ami meghatározza, hogy milyen paraméterek szükségesek és milyen paraméterek opcionálisak a meghívásához.
 A paraméter lista meghatározza a paraméterek típusát is.
 
-Az alábbi példában (\refstruc{lst:resolver}) egy egyszerű létrehozásra láthatunk egy lehetséges implementációt.
+Az alábbi példában egy egyszerű létrehozásra láthatunk egy lehetséges implementációt.
 A kódrészletben látható, hogy az argumentum lista helyett használhatunk külön definiált bemenetet is, így növelve a kód olvashatóságát.
 A resolve függvényben elvégezhetjük a szükséges adatbázis műveletet és meghívhatunk külső függvényeket is.
 A csatolt kódban az eszköz létrehozáson felül meghívunk egy függvényt, amely elkészíti az eseményhez tartozó napló bejegyzést, valamint küldünk egy jelzést az elem létrehozásához.
 Ezekre a jelzésekre a GraphQL Playground – vagy bármilyen kliens segítségével – feliratkozhatunk GraphQL Subscription–ök használatával, mely egy egyszerű websocket kapcsolatot nyit a backend és a frontend között. A Subscription–nek köszönhetően ezeket a többi kommunikációhoz hasonlóan kezelhetjük, így egy egységesebb kódbázist kaphatunk.
 
 
-\begin{lstlisting}[style=ES6, caption={Eszköz létrehozás resolver},label={lst:resolver}]
+\begin{lstlisting}[style=ES6]
 t.field('createItem', {
   type: 'Item',
   args: { data: CreateItemInput.asArg({ required: true }) },
@@ -95,9 +95,9 @@ t.field('createItem', {
 Az autentikáció és autorizáció ellenőrzésére a GraphQL Shield–et használtam. 
 Ennek segítségével egy egyszerű JavaScript object–tel megadható, hogy egyes Query–k és Mutation–ök esetén, milyen validáció fusson le.
 Lehetőséget biztosít egy úgynevezett fallback rule beállítására is, amely minden külön nem specifikált kérésnél fut le.
-Ezzel valósítottam meg a bejelentkezett felhasználó validálását (\refstruc{lst:shield}).
+Ezzel valósítottam meg a bejelentkezett felhasználó validálását.
 
-\begin{lstlisting}[style=ES6, caption={GraphQL Shield},label={lst:shield}]
+\begin{lstlisting}[style=ES6]
 export const shield = GQLShield(
    {
      Query: {
@@ -184,8 +184,8 @@ Ilyen paraméterrel jelzett nevet adhatunk bármelyik szinten lévő fájlnak, d
 Ahogy az korábban már többször is szóba került az Apollo–nak köszönhetően remek kódgenerálási lehetőségeink vannak.
 Alább egy példa keretein belül szeretném bemutatni ennek használatát
 
-A GraphQL Mutation–t (\refstruc{lst:login}) paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja a lehetséges paramétereket. 
-\begin{lstlisting}[style=ES6, caption={Login Mutation},label={lst:login}]
+A GraphQL Mutation–t paraméterekkel ellátva szükséges megírnunk, hogy a kód generátor tudja a lehetséges paramétereket. 
+\begin{lstlisting}[style=ES6]
 mutation Login($email: String!, $password: String!) {
   login(data: { email: $email, password: $password }) {
     token
@@ -193,12 +193,12 @@ mutation Login($email: String!, $password: String!) {
 }
 \end{lstlisting}
 
-A generálást futtatva azonnal használhatjuk az elkészült hook–okat, a csatolt példában (\refstruc{lst:loginForm}) ez a hook a useLoginMutation.
+A generálást futtatva azonnal használhatjuk az elkészült hook–okat, a csatolt példában ez a hook a useLoginMutation.
 
 A hálózati kapcsolat kezelésén felül megkapjuk annak az állapotát is, így tudjuk a felhasználói felület kinézetét a kérés állapotához kötni.
 Például töltés esetén egy töltő képernyőt megjeleníteni, vagy a hibákat kezelni.
 
-\begin{lstlisting}[style=ES6, caption={Bejelentkezés kódrészlet},label={lst:loginForm}]
+\begin{lstlisting}[style=ES6]
 const { register, handleSubmit, errors } = useForm<Inputs>()
 const [login, { loading }] = useLoginMutation()
 const toast = useToast()
@@ -231,9 +231,9 @@ const onSubmit = async (inputData) => {
 A felhasználótól érkező adatok minden esetben validálva vannak, ehhez a yup csomagot használtam.
 A yup segítségével definiálhatunk egy sémát, amelyre a bemenetnek illeszkedni kell. 
 Hiba esetén egy hibaüzenetet is generál az egyes mezőkhöz, így visszacsatolást adhatunk a felhasználónak, hogy melyik adat hibás és miért.
-Amennyiben szeretnék eltérni az alapértelmezett beállításoktól, a hibaüzeneteket szövegezését a séma definiálással együtt adhatjuk meg (\refstruc{lst:yup}).
+Amennyiben szeretnék eltérni az alapértelmezett beállításoktól, a hibaüzeneteket szövegezését a séma definiálással együtt adhatjuk meg.
 
-\begin{lstlisting}[style=ES6, caption={Esköz validációs séma},label={lst:yup}]
+\begin{lstlisting}[style=ES6]
 import * as yup from 'yup'
 
 export const itemSchema = yup.object().shape({
@@ -253,7 +253,7 @@ A formok elküldését egy React hook–kal valósítottam meg.
 A hook visszaadja a hibákat és lehetőséget biztosít a form újra–beállítására is.
 Minden beviteli mezőt regisztrálni kell a form hook–ba, így biztosítva azok elérését.
 
-\begin{lstlisting}[style=ES6, caption={Regisztrációnál használt form hook}]
+\begin{lstlisting}[style=ES6]
 const { register, handleSubmit, reset, errors } = useForm<Inputs>({
   resolver: yupResolver(itemSchema),
 })
@@ -261,7 +261,7 @@ const { register, handleSubmit, reset, errors } = useForm<Inputs>({
 
 A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetben az adott beviteli mező neve.
 
-\begin{lstlisting}[style=ES6, caption={Form hibák megjelenítésével}]
+\begin{lstlisting}[style=ES6]
 <form onSubmit={handleSubmit(onSubmit)}>
   <FormControl mb={4} isInvalid={!!errors.name}>
     <FormLabel htmlFor="name">Name</FormLabel>
@@ -275,7 +275,7 @@ A hibákat egy JavaScript objektumban kapjuk meg, melynek a kulcsa minden esetbe
 %----------------------------------------------------------------------------
 
 \subsection{Felhasználói felület}
-A felhasználói felületet a Chakra UI\footnote{A Chakra UI hivatalos weboldala \url{https://chakra-ui.com/}} könyvtár segítségével készítettem el. Ez kifejezetten React–hez készült és rengeteg konfigurálható beállítást tartalmaz, így teljes mértékben személyre szabható, egyedi design–t kaphatunk. Lehetőségünk van globális téma definiálására, de akár komponensenként is változtathatjuk a kinézetet a rengeteg paraméternek köszönhetően.
+A felhasználói felületet a Chakra UI\cite{ChakraUI} könyvtár segítségével készítettem el. Ez kifejezetten React–hez készült és rengeteg konfigurálható beállítást tartalmaz, így teljes mértékben személyre szabható, egyedi design–t kaphatunk. Lehetőségünk van globális téma definiálására, de akár komponensenként is változtathatjuk a kinézetet a rengeteg paraméternek köszönhetően.
 A Chakra használatának köszönhetően az összes általános komponens egy szép és minden lehetséges állapotra felkészített változatban rendelkezésemre állt.
 
 \begin{figure}[!ht]
